@@ -49,8 +49,8 @@ When payload is generated with name ```shellcode_runner_assembly_FlsAlloc_marsha
 
 The 3DES payloads are located under ```payloads/3DES/``` directory. There are two payloads and need to be executed diferrently. Password and Salt are static values but you can modified them as you need.
 
-- Password: oqphnbt0kuedizy4m3avx6r5lf21jc8s
-- Salt: vh9b4tsxrl1560wg8nda2meuc7yjzop3
+- **Password**: oqphnbt0kuedizy4m3avx6r5lf21jc8s
+- **Salt**: vh9b4tsxrl1560wg8nda2meuc7yjzop3
 
 #### Method 1
 The executable **des_decryptor.exe** is downloading the file from your Web server and executes it reflectively.
