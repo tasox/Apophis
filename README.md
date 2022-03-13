@@ -25,6 +25,10 @@ sudo apt update
 sudo apt-get install mono-complete
 ```
 
+```
+git clone https://github.com/tasox/Apophis
+```
+
 ## Usage
 
 ### Folders
