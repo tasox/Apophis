@@ -34,7 +34,9 @@ sudo apt-get install mono-complete
 | Net-Obfuscate | Compiled files of Net-Obfuscate GitHub project.|
 
 
-### Static Variables 
+### Static Variables (Needs to modified)
+Open with a text editor the bash file ```apophis.sh``` and edit the variables accordingly.
+
 | Variables | Description |
 | --- | --- |
 | PROCESS_TO_INJECT | Contains the remote process name that you want to inject into. |
