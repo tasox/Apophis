@@ -229,7 +229,7 @@ If everything goes well, you will get an output as bellow:
 ```
 
 ## Credits
-Nothing wouldn't be possible those great people didn't contribute:
+Nothing wouldn't be possible if these projects didn't exist:
 - Mono Team (https://github.com/mono)
 - James Forshaw (https://github.com/tyranid/DotNetToJScript)
 - Matthew Graeber (https://www.powershellgallery.com/packages/PowerSploit/3.0.0.0/Content/ScriptModification%5COut-EncryptedScript.ps1)
