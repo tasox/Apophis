@@ -126,7 +126,7 @@ More execution methods can be found:
 - https://lolbas-project.github.io/
 
 
-### [+] ConfuserX + Net-Obfuscator
+### [+] ConfuserEx + Net-Obfuscator
 
 During my tests, I noticed that Windows Defender could detect payloads genereted by **ConfuserEx** (https://github.com/yck1509/ConfuserEx). For this reason, I combined ```ConfuserEx + Net-Obfuscator``` (https://github.com/BinaryScary/NET-Obfuscate). 
 
@@ -183,5 +183,12 @@ If everything goes well, you will get an output as bellow:
 ...More...
 ```
 
-
+## Credits
+Nothing wouldn't be possible those great people didn't contribute:
+- Mono Team (https://github.com/mono)
+- James Forshaw (https://github.com/tyranid/DotNetToJScript)
+- Matthew Graeber (https://www.powershellgallery.com/packages/PowerSploit/3.0.0.0/Content/ScriptModification%5COut-EncryptedScript.ps1)
+- BinaryScary (https://github.com/BinaryScary/NET-Obfuscate)
+- yck1509 (https://github.com/yck1509/ConfuserEx)
+- jfmaes (https://github.com/jfmaes/AmsiHooker)
 
