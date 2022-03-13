@@ -28,6 +28,9 @@ sudo apt-get install mono-complete
 ```
 git clone https://github.com/tasox/Apophis
 ```
+```
+chmod +x apophis.sh
+```
 
 ## Usage
 
