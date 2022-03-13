@@ -9,6 +9,13 @@
 - ASPX, Web.Config 
 - HTA, JS, XSL
 
+## Installation
+```Apophis``` is using heavily Mono project in order to compile the CS templates. For this reason before start using it, you have to install ```mono``` on your Linux host.
+
+```
+sudo apt-get install mono-complete
+```
+
 ## Usage
 
 ### Folders
