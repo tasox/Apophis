@@ -14,7 +14,7 @@
 ### Static Variables 
 | Variables | Description |
 | --- | --- |
-| PROCESS_TO_INJECT | Contains the process name that you want to inject into|
+| PROCESS_TO_INJECT | Contains the remote process name that you want to inject into. |
 | MSFVENOM_PAYLOAD | MSF Payload |
 | LHOST | Listener IP |
 | LPORT | Listener Port | 
