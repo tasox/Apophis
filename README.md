@@ -37,10 +37,30 @@ LPORT=443
 | _numa | If the generated payload contains the word **numa** then **VirtualAllocExNuma** was used insetad of **VirtualAllocEx** |
 | _FlsAlloc | If the generated payload contains the word **FlsAlloc** then **FlsAlloc** API was used. |
 
+
 #### Payload Example
 When payload is generated with name ```shellcode_runner_assembly_FlsAlloc_marshal.exe```, it means:
 - FlsAlloc API was used
 - The Shellcode will be injected to executable's address space (Not to a remote process).
+
+```
+┌──(kali㉿kali)-[~/…/DotNetToJScript/payloads/XOR]
+└─$ ls -la                                                                                                                                                                                      127 ⨯
+total 144
+drwxr-xr-x 2 kali kali  4096 Mar 10 02:45 .
+drwxr-xr-x 9 kali kali  4096 Feb  2 08:20 ..
+-rwxr-xr-x 1 kali kali  5632 Mar 10 02:45 shellcode_runner_assembly.dll
+-rwxr-xr-x 1 kali kali  5632 Mar 10 02:45 shellcode_runner_assembly.exe
+-rwxr-xr-x 1 kali kali  5120 Mar 10 02:45 shellcode_runner_assembly_FlsAlloc_marshal.dll
+-rwxr-xr-x 1 kali kali  5120 Mar 10 02:45 shellcode_runner_assembly_FlsAlloc_marshal.exe
+-rwxr-xr-x 1 kali kali  5632 Mar 10 02:45 shellcode_runner_assembly_numa.dll
+-rwxr-xr-x 1 kali kali  5632 Mar 10 02:45 shellcode_runner_assembly_numa.exe
+-rwxr-xr-x 1 kali kali  5632 Mar 10 02:45 shellcode_runner_assembly_numa_marshal.dll
+-rwxr-xr-x 1 kali kali  5632 Mar 10 02:45 shellcode_runner_assembly_numa_marshal.exe
+-rwxr-xr-x 1 kali kali 65131 Mar 10 02:45 shellcode_runner_cpp.exe
+-rwxr-xr-x 1 kali kali  6144 Jan 24 23:05 shellcode_runner.dll
+
+```
 
 
 ## Shellcode Runners
