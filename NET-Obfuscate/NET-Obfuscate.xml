@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>NET-Obfuscate</name>
+    </assembly>
+    <members>
+        <member name="M:Obfuscate.Obfuscate.clean_asm(dnlib.DotNet.ModuleDef)">
+            <summary>
+            fixes discrepancies in IL such as maxstack errors that occur due to instruction insertion
+            </summary>
+        </member>
+        <member name="M:Obfuscate.Obfuscate.obfuscate(System.String,System.String)">
+            <summary>
+            Obfuscate ECMA CIL (.NET IL) assemblies by obfuscating names of methods, classes, namespaces, assemblyInfo and encoding strings
+            </summary>
+            <param name="inFile">The .Net assembly path you want to obfuscate</param>
+            <param name="outFile">Path to the newly obfuscated file, default is "inFile".obfuscated</param>
+        </member>
+        <member name="M:Obfuscate.Obfuscate.Main(System.String,System.String)">
+            <summary>
+            Obfuscate ECMA CIL (.NET IL) assemblies to evade Windows Defender AMSI 
+            </summary>
+            <param name="inFile">The .Net assembly path you want to obfuscate</param>
+            <param name="outFile">Path to the newly obfuscated file, default is "inFile".obfuscated</param>
+        </member>
+    </members>
+</doc>
