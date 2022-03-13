@@ -2,6 +2,15 @@
 
 ## Usage
 
+### Folders
+| Name | Description |
+| --- | --- |
+| Templates | Containing Shellcode Runners with and without encryption in various formats. |
+| payloads | Containing Shellcode Runners that can executed. |
+| ConfuserEx | Compiled files of ConfuserEx GitHub project. |
+| Net-Obfuscate | Compiled files of Net-Obfuscate GitHub project.|
+
+
 ### Static Variables 
 | Variables | Description |
 | --- | --- |
@@ -18,8 +27,8 @@
 | _numa | If the generated payload contains the word **numa** then **VirtualAllocExNuma** was used insetad of **VirtualAllocEx** |
 | _FlsAlloc | If the generated payload contains the word **FlsAlloc** then **FlsAlloc** API was used. |
 
-#### Example
-When payload is generated with name shellcode_runner_assembly_FlsAlloc_marshal.exe, it means:
+#### Payload Example
+When payload is generated with name ```shellcode_runner_assembly_FlsAlloc_marshal.exe```, it means:
 - FlsAlloc API was used
 - The Shellcode will be injected to executable's address space (Not to a remote process).
 
@@ -28,7 +37,7 @@ When payload is generated with name shellcode_runner_assembly_FlsAlloc_marshal.e
 
 ### [+] Triple DES
 
-The 3DES payloads are located under payloads/3DES/ directory. There are two payloads and need to be executed diferrently. 
+The 3DES payloads are located under ```payloads/3DES/``` directory. There are two payloads and need to be executed diferrently. 
 
 #### Method 1
 The executable **des_decryptor.exe** is downloading the file from your Web server and executes it reflectively.
