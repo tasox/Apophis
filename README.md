@@ -1,5 +1,5 @@
 # Description
-```Apophis``` project is a payload generator bash script that uses various tools in the background such as ```DotNetToJScript```, ```ConfuserEx```, ```Net-Obfuscator``` etc. It contains Csharp templates that compile with **Mono .Net Framework**. 
+```Apophis``` project is bash script shellcode runner generator that uses various tools in the background such as ```DotNetToJScript```, ```ConfuserEx```, ```Net-Obfuscator``` etc. It contains Csharp templates that are compiled with **Mono .Net Framework**. 
 
 ### What kind of shellcode runners it generates?
 - XOR 
