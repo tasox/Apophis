@@ -16,6 +16,13 @@
 sudo apt-get install mono-complete
 ```
 
+If your Linux host can't resolve the IP address, then try the following:
+```
+wget -q -O https://archive.kali.org/archive-key.asc | sudo apt-key add
+sudo apt update
+sudo apt-get install mono-complete
+```
+
 ## Usage
 
 ### Folders
