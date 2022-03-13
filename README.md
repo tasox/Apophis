@@ -1,4 +1,13 @@
 # Description
+Apophis project is a payload generator bash script that uses various tools in the background such as DotNetToJScript, ConfuserEx, Net-Obfuscator etc. It contains Csharp templates that compile with Mono .Net Framework. 
+
+### What kind of shellcode runners it generates?
+- XOR 
+- Caesar
+- AMSI Bypass (Patching, Unhooking)
+- TripleDES
+- ASPX, Web.Config 
+- HTA, JS, XSL
 
 ## Usage
 
@@ -40,7 +49,7 @@ LPORT=443
 
 #### Payload Example
 When payload is generated with name ```shellcode_runner_assembly_FlsAlloc_marshal.exe```, it means:
-- FlsAlloc API was used
+- ```FlsAlloc``` API was used
 - The Shellcode will be injected to executable's address space (Not to a remote process).
 
 ```
