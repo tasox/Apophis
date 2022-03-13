@@ -10,7 +10,7 @@
 - HTA, JS, XSL
 
 ## Installation
-```Apophis``` is using heavily Mono project in order to compile the CS templates. For this reason before start using it, you have to install ```mono``` on your Linux host.
+```Apophis``` is using heavily the ```Mono``` project in order to compile the CS templates.
 
 ```
 sudo apt-get install mono-complete
