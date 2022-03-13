@@ -22,10 +22,11 @@
 When payload is generated with name shellcode_runner_assembly_FlsAlloc_marshal.exe, it means:
 - FlsAlloc API was used
 - The Shellcode will be injected to executable's address space (Not to a remote process).
---
-### Payload execution
 
-**[+] Triple DES [+]**
+---
+## Payload execution
+
+### [+] Triple DES
 
 The 3DES payloads are located under payloads/3DES/ directory. There are two payloads and need to be executed diferrently. 
 
@@ -100,7 +101,7 @@ More execution methods can be found:
 - https://lolbas-project.github.io/
 
 
-#### [+] ConfuserX + Net-Obfuscator [+]
+### [+] ConfuserX + Net-Obfuscator
 
 During my tests, I noticed that Windows Defender could detect payloads genereted by **ConfuserEx** (https://github.com/yck1509/ConfuserEx). For this reason, I combined ```ConfuserEx + Net-Obfuscator``` (https://github.com/BinaryScary/NET-Obfuscate). 
 
