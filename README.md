@@ -4,10 +4,10 @@
 Apep (also spelled Apepi or Aapep) or Apophis (/əˈpoʊfɪs/;[1] Ancient Greek: Ἄποφις) was the ancient Egyptian deity who embodied chaos (ı͗zft in Egyptian) and was thus the opponent of light and Ma'at (order/truth). He appears in art as a giant serpent. His name is reconstructed by Egyptologists as *ʻAʼpāp(ī), as it was written ꜥꜣpp(y) and survived in later Coptic as Ⲁⲫⲱⲫ Aphōph.[2] Apep was first mentioned in the Eighth Dynasty, and he was honored in the names of the Fourteenth Dynasty king 'Apepi and of the Greater Hyksos king Apophis. - https://en.wikipedia.org/wiki/Apep
 
 ### What kind of shellcode runners it generates?
-- XOR 
-- Caesar
+- XOR (.exe, .dll)
+- Caesar (.exe, .dll)
 - AMSI Bypass (Patching, Unhooking)
-- TripleDES
+- TripleDES (.exe)
 - ASPX, Web.Config 
 - HTA, JS, XSL
 
