@@ -32,6 +32,40 @@ git clone https://github.com/tasox/Apophis
 chmod +x apophis.sh
 ```
 
+**Download Wix binaries**
+
+To generate an .MSI wrapper, you need first to download the Wix binaries and unzip it under the MSI directory. 
+```
+wget https://github.com/wixtoolset/wix3/releases/download/wix3112rtm/wix311-binaries.zip
+cd MSI
+unzip wix311-binaries.zip
+```
+
+```
+cd MSI/Wix311
+
+┌──(kali㉿kali)-[~/…/MSI/wix311-binaries]
+└─$ ls -ltr
+total 14388
+-rw-r--r--  1 kali kali    3369 Sep 15  2019 LICENSE.TXT
+-rw-r--r--  1 kali kali  169832 Sep 15  2019 mergemod.dll
+-rw-r--r--  1 kali kali  501248 Sep 15  2019 mergemod.cub
+-rw-r--r--  1 kali kali    4233 Sep 15  2019 lux.targets
+-rw-r--r--  1 kali kali  694784 Sep 15  2019 darice.cub
+-rw-r--r--  1 kali kali   61952 Sep 15  2019 mspatchc.dll
+...
+```
+The Wix binary that is responsible to generate your .MSI file, needs the msi.dll. For this reason, you need to install Wine (if you don't have it already) or to update it to the latest version. To avoid errors related to msi.dll.
+
+**Install/Update Wine on KALI**
+
+```
+echo deb-src https://dl.winehq.org/wine-builds/debian/ buster main >> /etc/apt/sources.list
+apt update
+apt install winehq-stable
+winecfg
+```
+
 ## Usage
 
 ### Folders
@@ -240,48 +274,33 @@ First, payloads that are located under ```payloads/XOR/``` and ```payloads/Caesa
  [*] PS>$ass=[System.Reflection.Assembly]::Load($data)
  [*] PS>$ass.GetType("J46IIOTXPW.PZAZUJAD4V").GetMethod("NK6WAROB2W").Invoke($null,$null)
 ```
-
+-----
 ### 1.5 MSI
 
-**Download Wix binaries**
-If you want to update the wix binaries then use the url bellow. Otherwise, use those that exists on this repo.
-```
-wget https://github.com/wixtoolset/wix3/releases/download/wix3112rtm/wix311-binaries.zip
-```
+**Modile shellcode_runner.xml**
 
-**Install/Update Wine on KALI**
+The file ```shellcode_runner.xml``` is located under the folder ```MSI```. Modify the ```line 16``` as you wish.
+
 ```
-echo deb-src https://dl.winehq.org/wine-builds/debian/ buster main >> /etc/apt/sources.list
-apt update
-apt install winehq-stable
-winecfg
+...
+<Property Id="cmdline">calc.exe</Property>
+...
 ```
 
 **Creating .wixobj file**
-```
-cd MSI/Wix311
 
-┌──(kali㉿kali)-[~/…/MSI/Wix311]
-└─$ ls -ltr
-total 14388
--rw-r--r--  1 kali kali    3369 Sep 15  2019 LICENSE.TXT
--rw-r--r--  1 kali kali  169832 Sep 15  2019 mergemod.dll
--rw-r--r--  1 kali kali  501248 Sep 15  2019 mergemod.cub
--rw-r--r--  1 kali kali    4233 Sep 15  2019 lux.targets
--rw-r--r--  1 kali kali  694784 Sep 15  2019 darice.cub
--rw-r--r--  1 kali kali   61952 Sep 15  2019 mspatchc.dll
-...
-```
 ```
 mono candle.exe -out ./ -arch x64 shellcode_runner.xml
 ```
 
 **Generating .MSI**
+
 ```
 wine light.exe -out calc.msi shellcode_runner.wixobj -sval
 ```
 
 **Execution**
+
 ```
 msiexec /q /i shellcode_runner.msi
 ```
