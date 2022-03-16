@@ -10,6 +10,7 @@ Apep (also spelled Apepi or Aapep) or Apophis (/əˈpoʊfɪs/;[1] Ancient Greek:
 - TripleDES (.exe)
 - ASPX, Web.Config 
 - HTA, JS, XSL
+- MSI
 
 ## Installation
 ```Apophis``` is using heavily the ```Mono``` project in order to compile the CS templates.
