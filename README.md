@@ -244,7 +244,7 @@ First, payloads that are located under ```payloads/XOR/``` and ```payloads/Caesa
 ### 1.5 MSI
 
 **Download Wix binaries**
-If you want to update the wix binaries then use the url bellow. 
+If you want to update the wix binaries then use the url bellow. Otherwise, use those that exists on this repo.
 ```
 wget https://github.com/wixtoolset/wix3/releases/download/wix3112rtm/wix311-binaries.zip
 ```
@@ -271,6 +271,7 @@ total 14388
 -rw-r--r--  1 kali kali  694784 Sep 15  2019 darice.cub
 -rw-r--r--  1 kali kali   61952 Sep 15  2019 mspatchc.dll
 ...
+```
 ```
 mono candle.exe -out ./ -arch x64 shellcode_runner.xml
 ```
