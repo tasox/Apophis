@@ -148,7 +148,7 @@ Password, Salt and IV are static values but you can modified them as you need.
 
 
 ### 1.1.1 Execution of des_decryptor.exe (Needs the path of Shellcode Runner)
-The executable **des_decryptor.exe** doesn't contain a shellcode in it. For this reason, we have to provide a shellcode runner on command-line. There are two 3DES encrypted Shellcode runners that you can put either to a Web or an SMB Server:
+The executable **des_decryptor.exe** doesn't contain a shellcode in it. For this reason, we have to provide a shellcode runner from the command-line. There are two 3DES encrypted Shellcode runners that you can put either to a Web or to an SMB Server:
 - des_decryptor_embedded.exe (It will inject the shellcode into the remote process that you have provided in the ```line 11 of apophis.sh```)
 - des_decryptor_embedded_marshal.exe (It will inject the shellcode into ```des_decryptor.exe```)
 
