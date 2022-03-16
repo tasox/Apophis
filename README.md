@@ -305,7 +305,7 @@ wine light.exe -out shellcode_runner.msi shellcode_runner.wixobj -sval
 ```
 msiexec /q /i shellcode_runner.msi
 ```
-![image](https://user-images.githubusercontent.com/9944198/158666861-e853653c-d312-46f9-bbc5-64eb9ab08267.png)
+![image](https://user-images.githubusercontent.com/9944198/158667046-e0f6264e-0cb5-46b9-99e7-0b9775c4bc8f.png)
 
 ---
 ## 2. Execute .Net Assemblies with Reflection
