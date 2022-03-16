@@ -32,7 +32,7 @@ git clone https://github.com/tasox/Apophis
 chmod +x apophis.sh
 ```
 
-**Download Wix binaries**
+### Download Wix binaries
 
 To generate an ```.MSI``` wrapper, you need first to download the ```Wix binaries``` and unzip it under the ```MSI directory```. 
 ```
@@ -57,7 +57,7 @@ total 14388
 ```
 The Wix binary (```light.exe```) that is responsible to generate your .MSI file, it needs the msi.dll. For this reason, you need to install Wine (if you don't have it already) or to update it to the latest version, to avoid errors related to msi.dll.
 
-**Install/Updating Wine on KALI**
+### Install/Updating Wine on KALI
 
 ```
 echo deb-src https://dl.winehq.org/wine-builds/debian/ buster main >> /etc/apt/sources.list
