@@ -55,7 +55,7 @@ total 14388
 -rw-r--r--  1 kali kali   61952 Sep 15  2019 mspatchc.dll
 ...
 ```
-The Wix binary that is responsible to generate your .MSI file, needs the msi.dll. For this reason, you need to install Wine (if you don't have it already) or to update it to the latest version. To avoid errors related to msi.dll.
+The Wix binary (```light.exe```) that is responsible to generate your .MSI file, it needs the msi.dll. For this reason, you need to install Wine (if you don't have it already) or to update it to the latest version, to avoid errors related to msi.dll.
 
 **Install/Updating Wine on KALI**
 
