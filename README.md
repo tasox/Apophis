@@ -290,13 +290,14 @@ The file ```shellcode_runner.xml``` is located under the folder ```MSI```. Modif
 **Creating .wixobj file**
 
 ```
+cd MSI/wix311-binaries
 mono candle.exe -out ./ -arch x64 shellcode_runner.xml
 ```
 
 **Generating .MSI**
 
 ```
-wine light.exe -out calc.msi shellcode_runner.wixobj -sval
+wine light.exe -out shellcode_runner.msi shellcode_runner.wixobj -sval
 ```
 
 **Execution**
