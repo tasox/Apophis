@@ -34,15 +34,15 @@ chmod +x apophis.sh
 
 **Download Wix binaries**
 
-To generate an .MSI wrapper, you need first to download the Wix binaries and unzip it under the MSI directory. 
+To generate an ```.MSI``` wrapper, you need first to download the ```Wix binaries``` and unzip it under the ```MSI directory```. 
 ```
-wget https://github.com/wixtoolset/wix3/releases/download/wix3112rtm/wix311-binaries.zip
 cd MSI
+wget https://github.com/wixtoolset/wix3/releases/download/wix3112rtm/wix311-binaries.zip
 unzip wix311-binaries.zip
 ```
 
 ```
-cd MSI/Wix311
+cd MSI/wix311-binaries
 
 ┌──(kali㉿kali)-[~/…/MSI/wix311-binaries]
 └─$ ls -ltr
@@ -57,7 +57,7 @@ total 14388
 ```
 The Wix binary that is responsible to generate your .MSI file, needs the msi.dll. For this reason, you need to install Wine (if you don't have it already) or to update it to the latest version. To avoid errors related to msi.dll.
 
-**Install/Update Wine on KALI**
+**Install/Updating Wine on KALI**
 
 ```
 echo deb-src https://dl.winehq.org/wine-builds/debian/ buster main >> /etc/apt/sources.list
