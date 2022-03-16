@@ -277,7 +277,7 @@ First, payloads that are located under ```payloads/XOR/``` and ```payloads/Caesa
 -----
 ### 1.5 Generating MSI 
 
-**Modile shellcode_runner.xml**
+**Edit the shellcode_runner.xml**
 
 The file ```shellcode_runner.xml``` is located under the folder ```MSI```. Modify the ```line 16``` as you wish.
 
