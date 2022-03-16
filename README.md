@@ -333,7 +333,7 @@ If everything goes well, you will get an output as the following:
 ```
 
 ## Credits
-Nothing from above would possible if these projects didn't exist:
+Nothing from all the above couldn't be possible, if these projects didn't exist:
 - Mono Team (https://github.com/mono)
 - James Forshaw (https://github.com/tyranid/DotNetToJScript)
 - Matthew Graeber (https://www.powershellgallery.com/packages/PowerSploit/3.0.0.0/Content/ScriptModification%5COut-EncryptedScript.ps1)
