@@ -312,13 +312,15 @@ The file ```shellcode_runner.xml``` is located under the folder ```Templates/MSI
 
 ```
 cd Templates/MSI/wix311-binaries
-mono candle.exe -out ./ -arch x64 shellcode_runner.xml
+mono candle.exe -out ../ -arch x64 ../shellcode_runner.xml
 ```
 
 **Generating .MSI**
 
 ```
-wine light.exe -out shellcode_runner.msi shellcode_runner.wixobj -sval
+cd Templates/MSI/wix311-binaries
+wine light.exe -out ../shellcode_runner.msi ../shellcode_runner.wixobj -sval
+cp shellcode_runner.msi payloads/MSI/
 ```
 
 **Execution**
