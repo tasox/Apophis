@@ -428,8 +428,8 @@ If everything goes well then:
 
 ## 5. Roadmap
 
-[] Add a Template for InstallUtil
-[] Add command-line arguments
+- [ ] Add a Template for InstallUtil
+- [ ] Add command-line arguments
 
 ## Acknowledgments
 Nothing from all the above couldn't be possible, if these projects didn't exist:
