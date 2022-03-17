@@ -276,7 +276,12 @@ First, payloads that are located under ```payloads/XOR/``` and ```payloads/Caesa
  [*] PS>$ass.GetType("J46IIOTXPW.PZAZUJAD4V").GetMethod("NK6WAROB2W").Invoke($null,$null)
 ```
 -----
-### 1.5 Generating MSI 
+### 1.5 Generating MSI
+
+To generate an ```.MSI``` shellcode runner, ```Apophis``` is using ```Mono```,```Wine``` and the ```XML``` template by Adam Chester. If you don't have installed ```Wine```, pls follow the steps described on the ```Installation``` section.
+
+**Good read**:
+- https://blog.xpnsec.com/becoming-system/ 
 
 
 ### 1.5.1 Generating MSI (manually)
