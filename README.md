@@ -424,8 +424,6 @@ If everything goes well then:
 
 ...More...
 ```
-## Contact
-Twitter: [@taso_x](https://twitter.com/taso_x)
 
 ## Acknowledgments
 Nothing from all the above couldn't be possible, if these projects didn't exist:
@@ -436,3 +434,6 @@ Nothing from all the above couldn't be possible, if these projects didn't exist:
 - yck1509 (https://github.com/yck1509/ConfuserEx)
 - jfmaes (https://github.com/jfmaes/AmsiHooker)
 
+
+## Contact
+Twitter: [@taso_x](https://twitter.com/taso_x)
