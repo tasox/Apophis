@@ -424,8 +424,10 @@ If everything goes well then:
 
 ...More...
 ```
+## Contact
+Twitter: @taso_x
 
-## Credits
+## Acknowledgments
 Nothing from all the above couldn't be possible, if these projects didn't exist:
 - Mono Team (https://github.com/mono)
 - James Forshaw (https://github.com/tyranid/DotNetToJScript)
