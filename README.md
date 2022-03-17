@@ -37,8 +37,7 @@ chmod +x apophis.sh
 
 To generate an ```.MSI``` wrapper, you need first to download the ```wix311-binaries.zip``` and to unzip it under the ```MSI directory```.
 
-[^note]:
-   The folder MUST have the name ```wix311-binaries```. 
+[^note]: The folder MUST have the name ```wix311-binaries```. 
 
 ```
 cd Templates/MSI/
