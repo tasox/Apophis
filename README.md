@@ -37,7 +37,7 @@ chmod +x apophis.sh
 
 To generate an ```.MSI``` wrapper, you need first to download the ```Wix binaries``` and unzip it under the ```MSI directory```. 
 ```
-cd MSI
+cd Templates/MSI/
 wget https://github.com/wixtoolset/wix3/releases/download/wix3112rtm/wix311-binaries.zip
 unzip wix311-binaries.zip
 ```
@@ -45,7 +45,7 @@ unzip wix311-binaries.zip
 ```
 cd MSI/wix311-binaries
 
-┌──(kali㉿kali)-[~/…/MSI/wix311-binaries]
+┌──(kali㉿kali)-[~/…/Templates/MSI/wix311-binaries]
 └─$ ls -ltr
 total 14388
 -rw-r--r--  1 kali kali    3369 Sep 15  2019 LICENSE.TXT
@@ -283,18 +283,18 @@ First, payloads that are located under ```payloads/XOR/``` and ```payloads/Caesa
 
 **Edit the shellcode_runner.xml**
 
-The file ```shellcode_runner.xml``` is located under the folder ```MSI```. Modify the ```line 16``` as you wish.
+The file ```shellcode_runner.xml``` is located under the folder ```Templates/MSI/```. Modify the ```line 16``` as you wish.
 
 ```
 ...
-<Property Id="cmdline">calc.exe</Property>
+<Property Id="cmdline">C:\\Windows\\temp\\shellcode_runner.exe</Property>
 ...
 ```
 
 **Creating .wixobj file**
 
 ```
-cd MSI/wix311-binaries
+cd Templates/MSI/wix311-binaries
 mono candle.exe -out ./ -arch x64 shellcode_runner.xml
 ```
 
