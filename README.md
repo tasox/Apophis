@@ -31,6 +31,7 @@ git clone https://github.com/tasox/Apophis
 ```
 ```
 chmod +x apophis.sh
+./Apophis
 ```
 
 ### Download Wix binaries
