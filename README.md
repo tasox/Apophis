@@ -116,7 +116,7 @@ When payload is generated with name ```shellcode_runner_assembly_FlsAlloc_marsha
 - The Shellcode will be injected to executable's address space (Not to a remote process).
 
 ```
-┌──(kali㉿kali)-[~/…/DotNetToJScript/payloads/XOR]
+┌──(kali㉿kali)-[~/…/payloads/XOR]
 └─$ ls -la                                                                                                                                                                                      127 ⨯
 total 144
 drwxr-xr-x 2 kali kali  4096 Mar 10 02:45 .
