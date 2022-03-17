@@ -104,7 +104,7 @@ LPORT=443
 ### Payload prefixes
 | Name | Description |
 | --- | --- |
-| _embedded | If the generated payload contains the word **embedded** then the **shellcode** is located inside the generated executable. |
+| _embedded | On the folder ```payloads/3DES/```, if the generated payload contains the word **embedded**, it means the **shellcode** is located inside the generated shellcode runner. |
 | _marshal | If the generated payload contains the word **marshal** then payload will be injected to executable's memory space. |
 | _numa | If the generated payload contains the word **numa** then **VirtualAllocExNuma** was used insetad of **VirtualAllocEx** |
 | _FlsAlloc | If the generated payload contains the word **FlsAlloc** then **FlsAlloc** API was used. |
