@@ -428,7 +428,7 @@ If everything goes well then:
 
 ## 5. Roadmap
 
-- [ ] Add a Template for InstallUtil
+- [X] Add a Template for InstallUtil
 - [ ] Add command-line arguments
 
 ## Acknowledgments
