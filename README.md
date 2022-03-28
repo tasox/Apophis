@@ -12,6 +12,7 @@ Apep (also spelled Apepi or Aapep) or Apophis (/əˈpoʊfɪs/;[1] Ancient Greek:
 - HTA, JS, XSL
 - MSI
 - InstallUtil (.exe)
+- AES + Compression (.exe)
 
 ## Installation
 ```Apophis``` is using heavily the ```Mono``` project in order to compile the CS templates.
