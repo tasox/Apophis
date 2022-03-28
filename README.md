@@ -353,7 +353,7 @@ C:\Windows\Microsoft.NET\Framework64\v4.0.30319\installutil.exe /logfile= /LogTo
 ---
 
 ### 1.7 AES + Compression
-There are two templates that encrypts a shellcode runner using AES + Compression method. These teplates are located under ```templates/AES/``` directory:
+There are two templates that encrypt a shellcode runner using AES + Compression method and export ```.exe``` file, which can be run via reflection. The templates are located under ```templates/AES/``` directory and having the following names:
 - AES_Deflate_HTTP.cs
 - AES_Deflate_SMB.cs
 
