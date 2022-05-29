@@ -92,6 +92,7 @@ wine --version
 # Download wine-mono
 wget https://dl.winehq.org/wine/wine-mono/<choose the corrent package>
 
+# Type the following command to show you the GUI from Wine.
 wine64 uninstaller
 
 # Press Install from the GUI
