@@ -66,12 +66,40 @@ The Wix binary (```light.exe```) that is responsible to generate your .MSI file,
 
 ### Install/Updating Wine on KALI
 
+#### Method 1
 ```
-echo deb-src https://dl.winehq.org/wine-builds/debian/ buster main >> /etc/apt/sources.list
+echo "deb-src https://dl.winehq.org/wine-builds/debian/ buster main" >> /etc/apt/sources.list
 apt update
-apt install winehq-stable
+apt install wine
 winecfg
 ```
+
+#### Method 2
+```
+# Enable 32 bit architecture
+sudo dpkg --add-architecture i386
+
+wget -O- -q https://download.opensuse.org/repositories/Emulators:/Wine:/Debian/Debian_10/Release.key | sudo apt-key add -
+echo "deb http://download.opensuse.org/repositories/Emulators:/Wine:/Debian/Debian_10 ./" >> /etc/apt/sources.list
+sudo apt update
+
+# If 'wine' doesn't work, use 'wine-stablehq'
+apt install wine
+
+# Get 'wine' version
+wine --version
+
+# Download wine-mono
+wget https://dl.winehq.org/wine/wine-mono/<choose the corrent package>
+
+wine64 uninstaller
+
+# Press Install from the GUI
+# Choose the wine-mono.msi installer that you downloaded on the previous step.
+
+# You have installed Mono for Wine. Done :)
+```
+
 
 ## Usage
 
