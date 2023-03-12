@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+<Product Id="*" UpgradeCode="12345678-1234-1234-1234-111111111111" Name="Example Product Name" Version="0.0.1" Manufacturer="tasox" Language="1033">
+<Package InstallerVersion="200" Compressed="yes" Comments="Windows Installer Package"/>
+<ProgId Id='Program.xyz' Description='Program handling .xyz' Advertise='yes'>
+  <Extension Id='xyz' ContentType='text/sql'>
+    <Verb Id='open' Sequence='1' Command='Open' Argument='"%1"'/>
+  </Extension>
+</ProgId>
+
+<Component Id="regSetup" Guid="12345678-1234-1234-1234-222222222222">
+	<Registry Root='HKCR' KeyPath='yes' Key='exefile\shell\open\command' Type='string' Value='[\[]open("calc.exe")[\]]' />
+</Component>
+</Product>
+</Wix>

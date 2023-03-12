@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+<Product Id="*" UpgradeCode="12345678-1234-1234-1234-111111111111" Name="Example Product Name" Version="0.0.1" Manufacturer="tasox" Language="1033">
+<Package InstallerVersion="200" Compressed="yes" Comments="Windows Installer Package"/>
+<Property Id="QtExecCmdLine64" Value="c:\Windows\system32\calc.exe"/>
+<CustomAction Id="SilentLaunch" BinaryKey="WixCA" DllEntry="CAQuietExec64" Execute="immediate" Return="check" />
+<InstallExecuteSequence>
+  <Custom Action="SilentLaunch" After="..." />
+</InstallExecuteSequence>
+</Product>
+</Wix>

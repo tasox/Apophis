@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
 #Read contents of JS script created by DotNetToJScript
-jsfile_open=open('payloads/DotNetToJScript/shellcode_runner.js', 'r')
+jsfile_open=open('payloads/DotNetToJScript/shellcode_runner_caesar.js', 'r')
 js_code = jsfile_open.read()
 jsfile_open.close()
 
