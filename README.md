@@ -36,7 +36,7 @@ chmod +x apophis.sh
 ./Apophis
 ```
 
-### Download Wix binaries
+### Download Wix binaries (MUST be fixed - Currently not working)
 
 To generate an ```.MSI``` wrapper, you need first to download the ```wix311-binaries.zip``` and to unzip it under the ```MSI directory```.
 
